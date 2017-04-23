@@ -1,0 +1,4551 @@
+<html><head></head><body><div class="apidocDiv">
+<style>
+/*csslint
+*/
+.apidocDiv {
+    background: #fff;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.apidocDiv a[href] {
+    color: #33f;
+    font-weight: bold;
+    text-decoration: none;
+}
+.apidocDiv a[href]:hover {
+    text-decoration: underline;
+}
+.apidocCodeCommentSpan {
+    background: #bbf;
+    color: #000;
+    display: block;
+}
+.apidocCodeKeywordSpan {
+    color: #d00;
+    font-weight: bold;
+}
+.apidocCodePre {
+    background: #eef;
+    border: 1px solid;
+    color: #777;
+    padding: 5px;
+    white-space: pre-wrap;
+}
+.apidocFooterDiv {
+    margin-top: 20px;
+    text-align: center;
+}
+.apidocModuleLi {
+    margin-top: 10px;
+}
+.apidocSectionDiv {
+    border-top: 1px solid;
+    margin-top: 20px;
+}
+.apidocSignatureSpan {
+    color: #777;
+    font-weight: bold;
+}
+</style>
+<h1>api documentation for
+    <a href="https://github.com/noodlefrenzy/node-amqp10">amqp10 (v3.5.2)</a>
+</h1>
+<h4>Native AMQP-1.0 client for node.js</h4>
+<div class="apidocSectionDiv"><a href="#apidoc.tableOfContents" id="apidoc.tableOfContents"><h1>table of contents</h1></a><ol>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.amqp10">module amqp10</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.AbstractTransport">
+            function <span class="apidocSignatureSpan">amqp10.</span>AbstractTransport
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.Client">
+            function <span class="apidocSignatureSpan">amqp10.</span>Client
+            <span class="apidocSignatureSpan">(policy, policyOverrides)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.DescribedType">
+            function <span class="apidocSignatureSpan">amqp10.</span>DescribedType
+            <span class="apidocSignatureSpan">(descriptorOrType, value)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.Errors.AuthenticationError">
+            function <span class="apidocSignatureSpan">amqp10.</span>Errors.AuthenticationError
+            <span class="apidocSignatureSpan">(msg)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.Errors.BaseError">
+            function <span class="apidocSignatureSpan">amqp10.</span>Errors.BaseError
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.Errors.ConnectionError">
+            function <span class="apidocSignatureSpan">amqp10.</span>Errors.ConnectionError
+            <span class="apidocSignatureSpan">(msg)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.Errors.DisconnectedError">
+            function <span class="apidocSignatureSpan">amqp10.</span>Errors.DisconnectedError
+            <span class="apidocSignatureSpan">(msg)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.Errors.EncodingError">
+            function <span class="apidocSignatureSpan">amqp10.</span>Errors.EncodingError
+            <span class="apidocSignatureSpan">(value, message)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.Errors.InvalidStateError">
+            function <span class="apidocSignatureSpan">amqp10.</span>Errors.InvalidStateError
+            <span class="apidocSignatureSpan">(msg)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.Errors.InvalidSubjectError">
+            function <span class="apidocSignatureSpan">amqp10.</span>Errors.InvalidSubjectError
+            <span class="apidocSignatureSpan">(subject)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.Errors.MalformedHeaderError">
+            function <span class="apidocSignatureSpan">amqp10.</span>Errors.MalformedHeaderError
+            <span class="apidocSignatureSpan">(header)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.Errors.MalformedPayloadError">
+            function <span class="apidocSignatureSpan">amqp10.</span>Errors.MalformedPayloadError
+            <span class="apidocSignatureSpan">(payload)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.Errors.NotConnectedError">
+            function <span class="apidocSignatureSpan">amqp10.</span>Errors.NotConnectedError
+            <span class="apidocSignatureSpan">(msg)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.Errors.NotImplementedError">
+            function <span class="apidocSignatureSpan">amqp10.</span>Errors.NotImplementedError
+            <span class="apidocSignatureSpan">(feature)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.Errors.OverCapacityError">
+            function <span class="apidocSignatureSpan">amqp10.</span>Errors.OverCapacityError
+            <span class="apidocSignatureSpan">(msg)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.Errors.ProtocolError">
+            function <span class="apidocSignatureSpan">amqp10.</span>Errors.ProtocolError
+            <span class="apidocSignatureSpan">(condition, description, errorInfo)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.Errors.TransportError">
+            function <span class="apidocSignatureSpan">amqp10.</span>Errors.TransportError
+            <span class="apidocSignatureSpan">(msg)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.Errors.VersionError">
+            function <span class="apidocSignatureSpan">amqp10.</span>Errors.VersionError
+            <span class="apidocSignatureSpan">(msg)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.Policy.PolicyBase">
+            function <span class="apidocSignatureSpan">amqp10.</span>Policy.PolicyBase
+            <span class="apidocSignatureSpan">(overrides)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.translator">
+            function <span class="apidocSignatureSpan">amqp10.</span>translator
+            <span class="apidocSignatureSpan">(input)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.use">
+            function <span class="apidocSignatureSpan">amqp10.</span>use
+            <span class="apidocSignatureSpan">(plugin)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">amqp10.</span>AbstractTransport.prototype</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">amqp10.</span>Client.prototype</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">amqp10.</span>Constants</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">amqp10.</span>DescribedType.prototype</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">amqp10.</span>Errors</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">amqp10.</span>Policy</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">amqp10.</span>Policy.PolicyBase.prototype</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">amqp10.</span>Policy.Utils</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">amqp10.</span>TransportProvider</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">amqp10.</span>Type</span>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.amqp10.AbstractTransport">module amqp10.AbstractTransport</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.AbstractTransport.AbstractTransport">
+            function <span class="apidocSignatureSpan">amqp10.</span>AbstractTransport
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.AbstractTransport.register">
+            function <span class="apidocSignatureSpan">amqp10.AbstractTransport.</span>register
+            <span class="apidocSignatureSpan">(client)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.AbstractTransport.super_">
+            function <span class="apidocSignatureSpan">amqp10.AbstractTransport.</span>super_
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.amqp10.AbstractTransport.prototype">module amqp10.AbstractTransport.prototype</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.AbstractTransport.prototype.connect">
+            function <span class="apidocSignatureSpan">amqp10.AbstractTransport.prototype.</span>connect
+            <span class="apidocSignatureSpan">(address)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.AbstractTransport.prototype.destroy">
+            function <span class="apidocSignatureSpan">amqp10.AbstractTransport.prototype.</span>destroy
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.AbstractTransport.prototype.end">
+            function <span class="apidocSignatureSpan">amqp10.AbstractTransport.prototype.</span>end
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.AbstractTransport.prototype.write">
+            function <span class="apidocSignatureSpan">amqp10.AbstractTransport.prototype.</span>write
+            <span class="apidocSignatureSpan">(data, callback)</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.amqp10.Client">module amqp10.Client</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.Client.Client">
+            function <span class="apidocSignatureSpan">amqp10.</span>Client
+            <span class="apidocSignatureSpan">(policy, policyOverrides)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.Client.super_">
+            function <span class="apidocSignatureSpan">amqp10.Client.</span>super_
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">string <span class="apidocSignatureSpan">amqp10.Client.</span>ConnectionClosed</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">string <span class="apidocSignatureSpan">amqp10.Client.</span>ConnectionOpened</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">string <span class="apidocSignatureSpan">amqp10.Client.</span>ErrorReceived</span>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.amqp10.Client.prototype">module amqp10.Client.prototype</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.Client.prototype._attemptReconnection">
+            function <span class="apidocSignatureSpan">amqp10.Client.prototype.</span>_attemptReconnection
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.Client.prototype._clearConnectionState">
+            function <span class="apidocSignatureSpan">amqp10.Client.prototype.</span>_clearConnectionState
+            <span class="apidocSignatureSpan">(saveReconnectDetails)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.Client.prototype._newConnection">
+            function <span class="apidocSignatureSpan">amqp10.Client.prototype.</span>_newConnection
+            <span class="apidocSignatureSpan">(connectPolicy)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.Client.prototype._newSession">
+            function <span class="apidocSignatureSpan">amqp10.Client.prototype.</span>_newSession
+            <span class="apidocSignatureSpan">(conn)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.Client.prototype._preventReconnect">
+            function <span class="apidocSignatureSpan">amqp10.Client.prototype.</span>_preventReconnect
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.Client.prototype._shouldReconnect">
+            function <span class="apidocSignatureSpan">amqp10.Client.prototype.</span>_shouldReconnect
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.Client.prototype.connect">
+            function <span class="apidocSignatureSpan">amqp10.Client.prototype.</span>connect
+            <span class="apidocSignatureSpan">(url, policyOverrides)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.Client.prototype.createReceiver">
+            function <span class="apidocSignatureSpan">amqp10.Client.prototype.</span>createReceiver
+            <span class="apidocSignatureSpan">(address, policyOverrides)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.Client.prototype.createReceiverStream">
+            function <span class="apidocSignatureSpan">amqp10.Client.prototype.</span>createReceiverStream
+            <span class="apidocSignatureSpan">(address, policyOverrides)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.Client.prototype.createSender">
+            function <span class="apidocSignatureSpan">amqp10.Client.prototype.</span>createSender
+            <span class="apidocSignatureSpan">(address, policyOverrides)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.Client.prototype.createSenderStream">
+            function <span class="apidocSignatureSpan">amqp10.Client.prototype.</span>createSenderStream
+            <span class="apidocSignatureSpan">(address, policyOverrides)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.Client.prototype.disconnect">
+            function <span class="apidocSignatureSpan">amqp10.Client.prototype.</span>disconnect
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.amqp10.DescribedType">module amqp10.DescribedType</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.DescribedType.DescribedType">
+            function <span class="apidocSignatureSpan">amqp10.</span>DescribedType
+            <span class="apidocSignatureSpan">(descriptorOrType, value)</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.amqp10.DescribedType.prototype">module amqp10.DescribedType.prototype</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.DescribedType.prototype.getValue">
+            function <span class="apidocSignatureSpan">amqp10.DescribedType.prototype.</span>getValue
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.amqp10.Errors">module amqp10.Errors</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.Errors.AuthenticationError">
+            function <span class="apidocSignatureSpan">amqp10.Errors.</span>AuthenticationError
+            <span class="apidocSignatureSpan">(msg)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.Errors.BaseError">
+            function <span class="apidocSignatureSpan">amqp10.Errors.</span>BaseError
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.Errors.ConnectionError">
+            function <span class="apidocSignatureSpan">amqp10.Errors.</span>ConnectionError
+            <span class="apidocSignatureSpan">(msg)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.Errors.DisconnectedError">
+            function <span class="apidocSignatureSpan">amqp10.Errors.</span>DisconnectedError
+            <span class="apidocSignatureSpan">(msg)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.Errors.EncodingError">
+            function <span class="apidocSignatureSpan">amqp10.Errors.</span>EncodingError
+            <span class="apidocSignatureSpan">(value, message)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.Errors.InvalidStateError">
+            function <span class="apidocSignatureSpan">amqp10.Errors.</span>InvalidStateError
+            <span class="apidocSignatureSpan">(msg)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.Errors.InvalidSubjectError">
+            function <span class="apidocSignatureSpan">amqp10.Errors.</span>InvalidSubjectError
+            <span class="apidocSignatureSpan">(subject)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.Errors.MalformedHeaderError">
+            function <span class="apidocSignatureSpan">amqp10.Errors.</span>MalformedHeaderError
+            <span class="apidocSignatureSpan">(header)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.Errors.MalformedPayloadError">
+            function <span class="apidocSignatureSpan">amqp10.Errors.</span>MalformedPayloadError
+            <span class="apidocSignatureSpan">(payload)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.Errors.NotConnectedError">
+            function <span class="apidocSignatureSpan">amqp10.Errors.</span>NotConnectedError
+            <span class="apidocSignatureSpan">(msg)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.Errors.NotImplementedError">
+            function <span class="apidocSignatureSpan">amqp10.Errors.</span>NotImplementedError
+            <span class="apidocSignatureSpan">(feature)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.Errors.OverCapacityError">
+            function <span class="apidocSignatureSpan">amqp10.Errors.</span>OverCapacityError
+            <span class="apidocSignatureSpan">(msg)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.Errors.ProtocolError">
+            function <span class="apidocSignatureSpan">amqp10.Errors.</span>ProtocolError
+            <span class="apidocSignatureSpan">(condition, description, errorInfo)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.Errors.TransportError">
+            function <span class="apidocSignatureSpan">amqp10.Errors.</span>TransportError
+            <span class="apidocSignatureSpan">(msg)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.Errors.VersionError">
+            function <span class="apidocSignatureSpan">amqp10.Errors.</span>VersionError
+            <span class="apidocSignatureSpan">(msg)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.Errors.wrapProtocolError">
+            function <span class="apidocSignatureSpan">amqp10.Errors.</span>wrapProtocolError
+            <span class="apidocSignatureSpan">(err)</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.amqp10.Errors.AuthenticationError">module amqp10.Errors.AuthenticationError</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.Errors.AuthenticationError.AuthenticationError">
+            function <span class="apidocSignatureSpan">amqp10.Errors.</span>AuthenticationError
+            <span class="apidocSignatureSpan">(msg)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.Errors.AuthenticationError.super_">
+            function <span class="apidocSignatureSpan">amqp10.Errors.AuthenticationError.</span>super_
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.amqp10.Errors.BaseError">module amqp10.Errors.BaseError</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.Errors.BaseError.BaseError">
+            function <span class="apidocSignatureSpan">amqp10.Errors.</span>BaseError
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.Errors.BaseError.super_">
+            function <span class="apidocSignatureSpan">amqp10.Errors.BaseError.</span>super_
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.amqp10.Errors.ConnectionError">module amqp10.Errors.ConnectionError</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.Errors.ConnectionError.ConnectionError">
+            function <span class="apidocSignatureSpan">amqp10.Errors.</span>ConnectionError
+            <span class="apidocSignatureSpan">(msg)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.Errors.ConnectionError.super_">
+            function <span class="apidocSignatureSpan">amqp10.Errors.ConnectionError.</span>super_
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.amqp10.Errors.DisconnectedError">module amqp10.Errors.DisconnectedError</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.Errors.DisconnectedError.DisconnectedError">
+            function <span class="apidocSignatureSpan">amqp10.Errors.</span>DisconnectedError
+            <span class="apidocSignatureSpan">(msg)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.Errors.DisconnectedError.super_">
+            function <span class="apidocSignatureSpan">amqp10.Errors.DisconnectedError.</span>super_
+            <span class="apidocSignatureSpan">(msg)</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.amqp10.Errors.EncodingError">module amqp10.Errors.EncodingError</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.Errors.EncodingError.EncodingError">
+            function <span class="apidocSignatureSpan">amqp10.Errors.</span>EncodingError
+            <span class="apidocSignatureSpan">(value, message)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.Errors.EncodingError.super_">
+            function <span class="apidocSignatureSpan">amqp10.Errors.EncodingError.</span>super_
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.amqp10.Errors.InvalidStateError">module amqp10.Errors.InvalidStateError</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.Errors.InvalidStateError.InvalidStateError">
+            function <span class="apidocSignatureSpan">amqp10.Errors.</span>InvalidStateError
+            <span class="apidocSignatureSpan">(msg)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.Errors.InvalidStateError.super_">
+            function <span class="apidocSignatureSpan">amqp10.Errors.InvalidStateError.</span>super_
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.amqp10.Errors.InvalidSubjectError">module amqp10.Errors.InvalidSubjectError</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.Errors.InvalidSubjectError.InvalidSubjectError">
+            function <span class="apidocSignatureSpan">amqp10.Errors.</span>InvalidSubjectError
+            <span class="apidocSignatureSpan">(subject)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.Errors.InvalidSubjectError.super_">
+            function <span class="apidocSignatureSpan">amqp10.Errors.InvalidSubjectError.</span>super_
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.amqp10.Errors.MalformedHeaderError">module amqp10.Errors.MalformedHeaderError</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.Errors.MalformedHeaderError.MalformedHeaderError">
+            function <span class="apidocSignatureSpan">amqp10.Errors.</span>MalformedHeaderError
+            <span class="apidocSignatureSpan">(header)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.Errors.MalformedHeaderError.super_">
+            function <span class="apidocSignatureSpan">amqp10.Errors.MalformedHeaderError.</span>super_
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.amqp10.Errors.MalformedPayloadError">module amqp10.Errors.MalformedPayloadError</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.Errors.MalformedPayloadError.MalformedPayloadError">
+            function <span class="apidocSignatureSpan">amqp10.Errors.</span>MalformedPayloadError
+            <span class="apidocSignatureSpan">(payload)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.Errors.MalformedPayloadError.super_">
+            function <span class="apidocSignatureSpan">amqp10.Errors.MalformedPayloadError.</span>super_
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.amqp10.Errors.NotConnectedError">module amqp10.Errors.NotConnectedError</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.Errors.NotConnectedError.NotConnectedError">
+            function <span class="apidocSignatureSpan">amqp10.Errors.</span>NotConnectedError
+            <span class="apidocSignatureSpan">(msg)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.Errors.NotConnectedError.super_">
+            function <span class="apidocSignatureSpan">amqp10.Errors.NotConnectedError.</span>super_
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.amqp10.Errors.NotImplementedError">module amqp10.Errors.NotImplementedError</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.Errors.NotImplementedError.NotImplementedError">
+            function <span class="apidocSignatureSpan">amqp10.Errors.</span>NotImplementedError
+            <span class="apidocSignatureSpan">(feature)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.Errors.NotImplementedError.super_">
+            function <span class="apidocSignatureSpan">amqp10.Errors.NotImplementedError.</span>super_
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.amqp10.Errors.OverCapacityError">module amqp10.Errors.OverCapacityError</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.Errors.OverCapacityError.OverCapacityError">
+            function <span class="apidocSignatureSpan">amqp10.Errors.</span>OverCapacityError
+            <span class="apidocSignatureSpan">(msg)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.Errors.OverCapacityError.super_">
+            function <span class="apidocSignatureSpan">amqp10.Errors.OverCapacityError.</span>super_
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.amqp10.Errors.ProtocolError">module amqp10.Errors.ProtocolError</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.Errors.ProtocolError.ProtocolError">
+            function <span class="apidocSignatureSpan">amqp10.Errors.</span>ProtocolError
+            <span class="apidocSignatureSpan">(condition, description, errorInfo)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.Errors.ProtocolError.super_">
+            function <span class="apidocSignatureSpan">amqp10.Errors.ProtocolError.</span>super_
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.amqp10.Errors.TransportError">module amqp10.Errors.TransportError</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.Errors.TransportError.TransportError">
+            function <span class="apidocSignatureSpan">amqp10.Errors.</span>TransportError
+            <span class="apidocSignatureSpan">(msg)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.Errors.TransportError.super_">
+            function <span class="apidocSignatureSpan">amqp10.Errors.TransportError.</span>super_
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.amqp10.Errors.VersionError">module amqp10.Errors.VersionError</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.Errors.VersionError.VersionError">
+            function <span class="apidocSignatureSpan">amqp10.Errors.</span>VersionError
+            <span class="apidocSignatureSpan">(msg)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.Errors.VersionError.super_">
+            function <span class="apidocSignatureSpan">amqp10.Errors.VersionError.</span>super_
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.amqp10.Policy">module amqp10.Policy</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.Policy.PolicyBase">
+            function <span class="apidocSignatureSpan">amqp10.Policy.</span>PolicyBase
+            <span class="apidocSignatureSpan">(overrides)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.Policy.merge">
+            function <span class="apidocSignatureSpan">amqp10.Policy.</span>merge
+            <span class="apidocSignatureSpan">(overrides, base)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">amqp10.Policy.</span>ActiveMQ</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">amqp10.Policy.</span>Default</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">amqp10.Policy.</span>EventHub</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">amqp10.Policy.</span>QpidJava</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">amqp10.Policy.</span>ServiceBusQueue</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">amqp10.Policy.</span>ServiceBusTopic</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">amqp10.Policy.</span>Utils</span>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.amqp10.Policy.PolicyBase">module amqp10.Policy.PolicyBase</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.Policy.PolicyBase.PolicyBase">
+            function <span class="apidocSignatureSpan">amqp10.Policy.</span>PolicyBase
+            <span class="apidocSignatureSpan">(overrides)</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.amqp10.Policy.PolicyBase.prototype">module amqp10.Policy.PolicyBase.prototype</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.Policy.PolicyBase.prototype.parseAddress">
+            function <span class="apidocSignatureSpan">amqp10.Policy.PolicyBase.prototype.</span>parseAddress
+            <span class="apidocSignatureSpan">(address)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.Policy.PolicyBase.prototype.parseLinkAddress">
+            function <span class="apidocSignatureSpan">amqp10.Policy.PolicyBase.prototype.</span>parseLinkAddress
+            <span class="apidocSignatureSpan">(address)</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.amqp10.Policy.Utils">module amqp10.Policy.Utils</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.Policy.Utils.Merge">
+            function <span class="apidocSignatureSpan">amqp10.Policy.Utils.</span>Merge
+            <span class="apidocSignatureSpan">(newPolicy, base)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.Policy.Utils.RenewOnSettle">
+            function <span class="apidocSignatureSpan">amqp10.Policy.Utils.</span>RenewOnSettle
+            <span class="apidocSignatureSpan">(initialCredit, threshold, basePolicy)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.Policy.Utils.fixDeprecatedOptions">
+            function <span class="apidocSignatureSpan">amqp10.Policy.Utils.</span>fixDeprecatedOptions
+            <span class="apidocSignatureSpan">(policy)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">amqp10.Policy.Utils.</span>CreditPolicies</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">amqp10.Policy.Utils.</span>SenderCallbackPolicies</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">amqp10.Policy.Utils.</span>SenderCallbackPolicy</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">amqp10.Policy.Utils.</span>WindowPolicies</span>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.amqp10.Type">module amqp10.Type</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.Type.address">
+            function <span class="apidocSignatureSpan">amqp10.Type.</span>address
+            <span class="apidocSignatureSpan">(value)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.Type.array">
+            function <span class="apidocSignatureSpan">amqp10.Type.</span>array
+            <span class="apidocSignatureSpan">(value)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.Type.binary">
+            function <span class="apidocSignatureSpan">amqp10.Type.</span>binary
+            <span class="apidocSignatureSpan">(value)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.Type.boolean">
+            function <span class="apidocSignatureSpan">amqp10.Type.</span>boolean
+            <span class="apidocSignatureSpan">(value)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.Type.byte">
+            function <span class="apidocSignatureSpan">amqp10.Type.</span>byte
+            <span class="apidocSignatureSpan">(value)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.Type.char">
+            function <span class="apidocSignatureSpan">amqp10.Type.</span>char
+            <span class="apidocSignatureSpan">(value)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.Type.decimal128">
+            function <span class="apidocSignatureSpan">amqp10.Type.</span>decimal128
+            <span class="apidocSignatureSpan">(value)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.Type.decimal32">
+            function <span class="apidocSignatureSpan">amqp10.Type.</span>decimal32
+            <span class="apidocSignatureSpan">(value)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.Type.decimal64">
+            function <span class="apidocSignatureSpan">amqp10.Type.</span>decimal64
+            <span class="apidocSignatureSpan">(value)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.Type.delivery-number">
+            function <span class="apidocSignatureSpan">amqp10.Type.</span>delivery-number
+            <span class="apidocSignatureSpan">(value)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.Type.delivery-tag">
+            function <span class="apidocSignatureSpan">amqp10.Type.</span>delivery-tag
+            <span class="apidocSignatureSpan">(value)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.Type.described">
+            function <span class="apidocSignatureSpan">amqp10.Type.</span>described
+            <span class="apidocSignatureSpan">(descriptor, value)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.Type.double">
+            function <span class="apidocSignatureSpan">amqp10.Type.</span>double
+            <span class="apidocSignatureSpan">(value)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.Type.error">
+            function <span class="apidocSignatureSpan">amqp10.Type.</span>error
+            <span class="apidocSignatureSpan">(value)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.Type.fields">
+            function <span class="apidocSignatureSpan">amqp10.Type.</span>fields
+            <span class="apidocSignatureSpan">(value)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.Type.float">
+            function <span class="apidocSignatureSpan">amqp10.Type.</span>float
+            <span class="apidocSignatureSpan">(value)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.Type.handle">
+            function <span class="apidocSignatureSpan">amqp10.Type.</span>handle
+            <span class="apidocSignatureSpan">(value)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.Type.ietf-language-tag">
+            function <span class="apidocSignatureSpan">amqp10.Type.</span>ietf-language-tag
+            <span class="apidocSignatureSpan">(value)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.Type.int">
+            function <span class="apidocSignatureSpan">amqp10.Type.</span>int
+            <span class="apidocSignatureSpan">(value)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.Type.list">
+            function <span class="apidocSignatureSpan">amqp10.Type.</span>list
+            <span class="apidocSignatureSpan">(value)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.Type.long">
+            function <span class="apidocSignatureSpan">amqp10.Type.</span>long
+            <span class="apidocSignatureSpan">(value)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.Type.map">
+            function <span class="apidocSignatureSpan">amqp10.Type.</span>map
+            <span class="apidocSignatureSpan">(value)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.Type.message-format">
+            function <span class="apidocSignatureSpan">amqp10.Type.</span>message-format
+            <span class="apidocSignatureSpan">(value)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.Type.milliseconds">
+            function <span class="apidocSignatureSpan">amqp10.Type.</span>milliseconds
+            <span class="apidocSignatureSpan">(value)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.Type.null">
+            function <span class="apidocSignatureSpan">amqp10.Type.</span>null
+            <span class="apidocSignatureSpan">(value)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.Type.seconds">
+            function <span class="apidocSignatureSpan">amqp10.Type.</span>seconds
+            <span class="apidocSignatureSpan">(value)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.Type.sequence-no">
+            function <span class="apidocSignatureSpan">amqp10.Type.</span>sequence-no
+            <span class="apidocSignatureSpan">(value)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.Type.short">
+            function <span class="apidocSignatureSpan">amqp10.Type.</span>short
+            <span class="apidocSignatureSpan">(value)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.Type.string">
+            function <span class="apidocSignatureSpan">amqp10.Type.</span>string
+            <span class="apidocSignatureSpan">(value)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.Type.symbol">
+            function <span class="apidocSignatureSpan">amqp10.Type.</span>symbol
+            <span class="apidocSignatureSpan">(value)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.Type.timestamp">
+            function <span class="apidocSignatureSpan">amqp10.Type.</span>timestamp
+            <span class="apidocSignatureSpan">(value)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.Type.transfer-number">
+            function <span class="apidocSignatureSpan">amqp10.Type.</span>transfer-number
+            <span class="apidocSignatureSpan">(value)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.Type.ubyte">
+            function <span class="apidocSignatureSpan">amqp10.Type.</span>ubyte
+            <span class="apidocSignatureSpan">(value)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.Type.uint">
+            function <span class="apidocSignatureSpan">amqp10.Type.</span>uint
+            <span class="apidocSignatureSpan">(value)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.Type.ulong">
+            function <span class="apidocSignatureSpan">amqp10.Type.</span>ulong
+            <span class="apidocSignatureSpan">(value)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.Type.ushort">
+            function <span class="apidocSignatureSpan">amqp10.Type.</span>ushort
+            <span class="apidocSignatureSpan">(value)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.amqp10.Type.uuid">
+            function <span class="apidocSignatureSpan">amqp10.Type.</span>uuid
+            <span class="apidocSignatureSpan">(value)</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+</ol></div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.amqp10" id="apidoc.module.amqp10">module amqp10</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.AbstractTransport" id="apidoc.element.amqp10.AbstractTransport">
+        function <span class="apidocSignatureSpan">amqp10.</span>AbstractTransport
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">AbstractTransport = function () {
+  if (this.constructor === AbstractTransport) {
+    throwBecauseAbstract('constructor');
+  }
+
+  EventEmitter.call(this);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.Client" id="apidoc.element.amqp10.Client">
+        function <span class="apidocSignatureSpan">amqp10.</span>Client
+        <span class="apidocSignatureSpan">(policy, policyOverrides)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function AMQPClient(policy, policyOverrides) {
+  if (!(policy instanceof Policy)) {
+    this.policy = pu.Merge(policy, new Policy());
+  } else {
+    this.policy = policy || new Policy();
+    if (!!policyOverrides) this.policy = pu.Merge(policyOverrides, this.policy);
+  }
+
+  this._connection = null;
+  this._session = null;
+
+  this._reconnect = null;
+  if (!!this.policy.reconnect) {
+    this._timeouts = u.generateTimeouts(this.policy.reconnect);
+  }
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.DescribedType" id="apidoc.element.amqp10.DescribedType">
+        function <span class="apidocSignatureSpan">amqp10.</span>DescribedType
+        <span class="apidocSignatureSpan">(descriptorOrType, value)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function DescribedType(descriptorOrType, value) {
+  if (descriptorOrType &amp;&amp; descriptorOrType.prototype &amp;&amp; descriptorOrType.prototype.Descriptor)
+    this.descriptor = descriptorOrType.prototype.Descriptor.code;
+  else
+    this.descriptor = descriptorOrType;
+
+  this.value = value;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.Errors.AuthenticationError" id="apidoc.element.amqp10.Errors.AuthenticationError">
+        function <span class="apidocSignatureSpan">amqp10.</span>Errors.AuthenticationError
+        <span class="apidocSignatureSpan">(msg)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">Errors.AuthenticationError = function (msg) {
+  errors.BaseError.call(this, msg);
+  this.name = 'AmqpAuthenticationError';
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.Errors.BaseError" id="apidoc.element.amqp10.Errors.BaseError">
+        function <span class="apidocSignatureSpan">amqp10.</span>Errors.BaseError
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">Errors.BaseError = function () {
+  var tmp = Error.apply(this, arguments);
+  tmp.name = this.name = 'AmqpError';
+
+  this.message = tmp.message;
+  if (Error.captureStackTrace)
+    Error.captureStackTrace(this, this.constructor);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.Errors.ConnectionError" id="apidoc.element.amqp10.Errors.ConnectionError">
+        function <span class="apidocSignatureSpan">amqp10.</span>Errors.ConnectionError
+        <span class="apidocSignatureSpan">(msg)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">Errors.ConnectionError = function (msg) {
+  errors.BaseError.call(this, msg);
+  this.name = 'AmqpConnectionError';
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.Errors.DisconnectedError" id="apidoc.element.amqp10.Errors.DisconnectedError">
+        function <span class="apidocSignatureSpan">amqp10.</span>Errors.DisconnectedError
+        <span class="apidocSignatureSpan">(msg)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">Errors.DisconnectedError = function (msg) {
+  errors.ConnectionError.call(this, msg);
+  this.name = 'AmqpDisconnectedError';
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.Errors.EncodingError" id="apidoc.element.amqp10.Errors.EncodingError">
+        function <span class="apidocSignatureSpan">amqp10.</span>Errors.EncodingError
+        <span class="apidocSignatureSpan">(value, message)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">Errors.EncodingError = function (value, message) {
+  message = message || 'encoding failure';
+  errors.BaseError.call(this, message);
+  this.name = 'AmqpEncodingError';
+  this.value = value;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.Errors.InvalidStateError" id="apidoc.element.amqp10.Errors.InvalidStateError">
+        function <span class="apidocSignatureSpan">amqp10.</span>Errors.InvalidStateError
+        <span class="apidocSignatureSpan">(msg)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">Errors.InvalidStateError = function (msg) {
+  errors.BaseError.call(this, msg);
+  this.name = 'AmqpInvalidStateError';
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.Errors.InvalidSubjectError" id="apidoc.element.amqp10.Errors.InvalidSubjectError">
+        function <span class="apidocSignatureSpan">amqp10.</span>Errors.InvalidSubjectError
+        <span class="apidocSignatureSpan">(subject)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">Errors.InvalidSubjectError = function (subject) {
+  errors.BaseError.call(this, 'Invalid subject: ' + subject);
+  this.name = 'AmqpInvalidSubjectError';
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.Errors.MalformedHeaderError" id="apidoc.element.amqp10.Errors.MalformedHeaderError">
+        function <span class="apidocSignatureSpan">amqp10.</span>Errors.MalformedHeaderError
+        <span class="apidocSignatureSpan">(header)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">Errors.MalformedHeaderError = function (header) {
+  errors.BaseError.call(this, 'malformed header: ' + header);
+  this.name = 'AmqpMalformedHeaderError';
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.Errors.MalformedPayloadError" id="apidoc.element.amqp10.Errors.MalformedPayloadError">
+        function <span class="apidocSignatureSpan">amqp10.</span>Errors.MalformedPayloadError
+        <span class="apidocSignatureSpan">(payload)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">Errors.MalformedPayloadError = function (payload) {
+  errors.BaseError.call(this, 'malformed payload: ' + payload);
+  this.name = 'AmqpMalformedPayloadError';
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.Errors.NotConnectedError" id="apidoc.element.amqp10.Errors.NotConnectedError">
+        function <span class="apidocSignatureSpan">amqp10.</span>Errors.NotConnectedError
+        <span class="apidocSignatureSpan">(msg)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">Errors.NotConnectedError = function (msg) {
+  errors.BaseError.call(this, msg);
+  this.name = 'AmqpNotConnectedError';
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.Errors.NotImplementedError" id="apidoc.element.amqp10.Errors.NotImplementedError">
+        function <span class="apidocSignatureSpan">amqp10.</span>Errors.NotImplementedError
+        <span class="apidocSignatureSpan">(feature)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">Errors.NotImplementedError = function (feature) {
+  errors.BaseError.call(this, feature + ' not yet implemented');
+  this.name = 'AmqpNotImplementedError';
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.Errors.OverCapacityError" id="apidoc.element.amqp10.Errors.OverCapacityError">
+        function <span class="apidocSignatureSpan">amqp10.</span>Errors.OverCapacityError
+        <span class="apidocSignatureSpan">(msg)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">Errors.OverCapacityError = function (msg) {
+  errors.BaseError.call(this, msg);
+  this.name = 'AmqpOverCapacityError';
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.Errors.ProtocolError" id="apidoc.element.amqp10.Errors.ProtocolError">
+        function <span class="apidocSignatureSpan">amqp10.</span>Errors.ProtocolError
+        <span class="apidocSignatureSpan">(condition, description, errorInfo)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">Errors.ProtocolError = function (condition, description, errorInfo) {
+  errors.BaseError.call(this, condition + ':' + (description || 'no description'));
+  this.name = 'AmqpProtocolError';
+
+  this.condition = condition;
+  this.description = description;
+  this.errorInfo = errorInfo;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.Errors.TransportError" id="apidoc.element.amqp10.Errors.TransportError">
+        function <span class="apidocSignatureSpan">amqp10.</span>Errors.TransportError
+        <span class="apidocSignatureSpan">(msg)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">Errors.TransportError = function (msg) {
+  errors.BaseError.call(this, msg);
+  this.name = 'AmqpTransportError';
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.Errors.VersionError" id="apidoc.element.amqp10.Errors.VersionError">
+        function <span class="apidocSignatureSpan">amqp10.</span>Errors.VersionError
+        <span class="apidocSignatureSpan">(msg)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">Errors.VersionError = function (msg) {
+  errors.BaseError.call(this, msg);
+  this.name = 'AmqpVersionError';
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.Policy.PolicyBase" id="apidoc.element.amqp10.Policy.PolicyBase">
+        function <span class="apidocSignatureSpan">amqp10.</span>Policy.PolicyBase
+        <span class="apidocSignatureSpan">(overrides)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function Policy(overrides) {
+  if (!(this instanceof Policy))
+    return new Policy(overrides);
+
+  u.defaults(this, overrides, {
+<span class="apidocCodeCommentSpan">    /**
+     * support subjects in link names with the following characteristics:
+     * receiver: "amq.topic/news", means a filter on the ReceiverLink will be made
+     *           for messages send with a subject "news"
+     *
+     * sender: "amq.topic/news", will automatically set "news" as the subject for
+     *         messages sent on this link, unless the user explicitly overrides
+     *         the subject.
+     *
+     * @name Policy#defaultSubjects
+     * @property {boolean}
+     */
+</span>    defaultSubjects: true,
+
+    /**
+     * Options related to the reconnect behavior of the client. If this value is `null` reconnect
+     * is effectively disabled
+     *
+     * @name Policy#reconnect
+     * @type {Object|null}
+     * @property {number|null} [retries] How many times to attempt reconnection
+     * @property {string} [strategy='fibonacci'] The algorithm used for backoff. Can be `fibonacci` or `exponential`
+     * @property {boolean} [forever] Whether or not to attempt reconnection forever
+     */
+    reconnect: {
+      retries: 10,
+      strategy: 'fibonacci', // || 'exponential'
+      forever: true
+    },
+
+    /**
+     * @name Policy#connect
+     * @type {object}
+     * @property {object} options Options passed into the open performative on initial connection
+     * @property {string|function} options.containerId The id of the source container
+     * @property {string} options.hostname The name of the target host
+     * @property {number} options.maxFrameSize The largest frame size that the sending peer is able to accept on this connection
+     * @property {number} options.channelMax The channel-max value is the highest channel number that can be used on the connection
+     * @property {number} options.idleTimeout The idle timeout required by the sender
+     * @property {array&lt;string&gt;|null} options.outgoingLocales A list of the locales that the peer supports for sending informational
+ text
+     * @property {array&lt;string&gt;|null} options.incomingLocales A list of locales that the sending peer permits for incoming informational
+ text
+     * @property {array&lt;string&gt;|null} options.offeredCapabilities A list of extension capabilities the peer may use if the sender
+ offers them
+     * @property {array|null} options.desiredCapabilities The desired-capability list defines which extension capabilities the sender
+ may use if the receiver offers them
+     * @property {object|null} options.properties The properties map contains a set of fields intended to indicate information about
+ the connection and its container
+     * @property {object} sslOptions Options used to initiate a TLS/SSL connection, with the exception of the following options
+all options in this object are passed directly to node's [tls.connect](https://nodejs.org/api/tls.html#tls_tls_connect_options_callback
+) method.
+     * @property {string|null} sslOptions.keyFile Path to the file containing the private key for the client
+     * @property {string|null} sslOptions.certFile Path to the file containing the certificate key for the client
+     * @property {string|null} sslOptions.caFile Path to the file containing the trusted cert for the client
+     * @property {boolean} sslOptions.rejectUnauthorized
+     * @property {string|null} saslMechanism Allows the sasl mechanism to be overriden by policy
+     */
+    connect: {
+      options: {
+        containerId: containerName(),
+        hostname: 'localhost',
+        maxFrameSize: constants.defaultMaxFrameSize,
+        channelMax: constants.defaultChannelMax,
+        idleTimeout: constants.defaultIdleTimeout,
+        outgoingLocales: constants.defaultOutgoingLocales,
+        incomingLocales: constants.defaultIncomingLocales,
+        offeredCapabilities: null,
+        desiredCapabilities: null,
+        properties: {},
+      },
+      sslOptions: {
+        keyFile: null,
+        certFile: null,
+        caFile: null,
+        rejectUnauthorized: false
+      },
+      saslMechanism: null
+    },
+
+    /* ...</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.translator" id="apidoc.element.amqp10.translator">
+        function <span class="apidocSignatureSpan">amqp10.</span>translator
+        <span class="apidocSignatureSpan">(input)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function translate(input) {
+  if (!Array.isArray(input)) {  // raw value
+    return input;
+  }
+
+  var typeName = input[0];
+  var value = input.slice(1);
+  if (typeName === 'list') {
+    return Type.list(value.map(translate));
+  } else if (typeName === 'map') {
+    var map = {};
+    for (var i = 0; i &lt; value.length; i += 2) {
+      map[translate(value[i])] = translate(value[i + 1]);
+    }
+
+    return Type.map(map);
+  } else if (typeName === 'array') {
+    var arrayType = value[0];
+    return new AMQPArray(value.slice(1).map(translate), arrayType);
+  } else if (typeName === 'described') {
+    return new DescribedType(translate(value[0]), translate(value[1]));
+  } else if (KNOWN_TYPES.indexOf(typeName) !== -1) {
+    return Type[typeName](value[0]);
+  }
+
+  return new ForcedType(typeName, translate(value));
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.use" id="apidoc.element.amqp10.use">
+        function <span class="apidocSignatureSpan">amqp10.</span>use
+        <span class="apidocSignatureSpan">(plugin)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">use = function (plugin) {
+  if (typeof plugin !== 'function') {
+    throw new Error('Plugin is not a function');
+  }
+
+  plugin(Client);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.amqp10.AbstractTransport" id="apidoc.module.amqp10.AbstractTransport">module amqp10.AbstractTransport</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.AbstractTransport.AbstractTransport" id="apidoc.element.amqp10.AbstractTransport.AbstractTransport">
+        function <span class="apidocSignatureSpan">amqp10.</span>AbstractTransport
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">AbstractTransport = function () {
+  if (this.constructor === AbstractTransport) {
+    throwBecauseAbstract('constructor');
+  }
+
+  EventEmitter.call(this);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.AbstractTransport.register" id="apidoc.element.amqp10.AbstractTransport.register">
+        function <span class="apidocSignatureSpan">amqp10.AbstractTransport.</span>register
+        <span class="apidocSignatureSpan">(client)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">register = function (client) {
+  throwBecauseAbstract('register');
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.AbstractTransport.super_" id="apidoc.element.amqp10.AbstractTransport.super_">
+        function <span class="apidocSignatureSpan">amqp10.AbstractTransport.</span>super_
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function EventEmitter() {
+  EventEmitter.init.call(this);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.amqp10.AbstractTransport.prototype" id="apidoc.module.amqp10.AbstractTransport.prototype">module amqp10.AbstractTransport.prototype</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.AbstractTransport.prototype.connect" id="apidoc.element.amqp10.AbstractTransport.prototype.connect">
+        function <span class="apidocSignatureSpan">amqp10.AbstractTransport.prototype.</span>connect
+        <span class="apidocSignatureSpan">(address)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">connect = function (address) {
+  throwBecauseAbstract('connect');
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+connecting against, connect, and then send/receive as necessary.  So a simple example for a local Apache Qpid
+server would look like:
+
+var AMQPClient = require('amqp10').Client,
+    Promise = require('bluebird');
+
+var client = new AMQPClient(); // Uses PolicyBase default policy
+client.<span class="apidocCodeKeywordSpan">connect</span>('amqp://localhost')
+  .then(function() {
+    return Promise.all([
+      client.createReceiver('amq.topic'),
+      client.createSender('amq.topic')
+    ]);
+  })
+  .spread(function(receiver, sender) {
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.AbstractTransport.prototype.destroy" id="apidoc.element.amqp10.AbstractTransport.prototype.destroy">
+        function <span class="apidocSignatureSpan">amqp10.AbstractTransport.prototype.</span>destroy
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">destroy = function () {
+  throwBecauseAbstract('destroy');
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.AbstractTransport.prototype.end" id="apidoc.element.amqp10.AbstractTransport.prototype.end">
+        function <span class="apidocSignatureSpan">amqp10.AbstractTransport.prototype.</span>end
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">end = function () {
+  throwBecauseAbstract('end');
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.AbstractTransport.prototype.write" id="apidoc.element.amqp10.AbstractTransport.prototype.write">
+        function <span class="apidocSignatureSpan">amqp10.AbstractTransport.prototype.</span>write
+        <span class="apidocSignatureSpan">(data, callback)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">write = function (data, callback) {
+  throwBecauseAbstract('write');
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.amqp10.Client" id="apidoc.module.amqp10.Client">module amqp10.Client</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.Client.Client" id="apidoc.element.amqp10.Client.Client">
+        function <span class="apidocSignatureSpan">amqp10.</span>Client
+        <span class="apidocSignatureSpan">(policy, policyOverrides)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function AMQPClient(policy, policyOverrides) {
+  if (!(policy instanceof Policy)) {
+    this.policy = pu.Merge(policy, new Policy());
+  } else {
+    this.policy = policy || new Policy();
+    if (!!policyOverrides) this.policy = pu.Merge(policyOverrides, this.policy);
+  }
+
+  this._connection = null;
+  this._session = null;
+
+  this._reconnect = null;
+  if (!!this.policy.reconnect) {
+    this._timeouts = u.generateTimeouts(this.policy.reconnect);
+  }
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.Client.super_" id="apidoc.element.amqp10.Client.super_">
+        function <span class="apidocSignatureSpan">amqp10.Client.</span>super_
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function EventEmitter() {
+  EventEmitter.init.call(this);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+
+
+
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.amqp10.Client.prototype" id="apidoc.module.amqp10.Client.prototype">module amqp10.Client.prototype</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.Client.prototype._attemptReconnection" id="apidoc.element.amqp10.Client.prototype._attemptReconnection">
+        function <span class="apidocSignatureSpan">amqp10.Client.prototype.</span>_attemptReconnection
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">_attemptReconnection = function () {
+  this._clearConnectionState(true);
+
+  var self = this;
+  return self._reconnect()
+    .catch(function(err) {
+      self.emit(AMQPClient.ErrorReceived, err);
+
+      // @todo: this is problematic, since we're not passing the reconnect
+      //        promise back to sender. As such, it will signal two uncaught
+      //        exceptions, and then dump and quit the program. Need to find a
+      //        better way to tie the reconnect promise to the original request.
+      // if (!self._shouldReconnect())
+      //   throw err;  // rethrow
+    });
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.Client.prototype._clearConnectionState" id="apidoc.element.amqp10.Client.prototype._clearConnectionState">
+        function <span class="apidocSignatureSpan">amqp10.Client.prototype.</span>_clearConnectionState
+        <span class="apidocSignatureSpan">(saveReconnectDetails)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">_clearConnectionState = function (saveReconnectDetails) {
+  if (!!this._connection) this._connection.removeAllListeners();
+  this._connection = null;
+  if (!saveReconnectDetails) {
+    this._reconnect = null;
+  }
+
+  if (this._session) this._session._resetLinkState();
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.Client.prototype._newConnection" id="apidoc.element.amqp10.Client.prototype._newConnection">
+        function <span class="apidocSignatureSpan">amqp10.Client.prototype.</span>_newConnection
+        <span class="apidocSignatureSpan">(connectPolicy)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">_newConnection = function (connectPolicy) {
+  var self = this;
+  var connection = new Connection(connectPolicy);
+  connection.on(Connection.ErrorReceived, function(e) {
+    debug('connection error: ', e);
+    self.emit(AMQPClient.ErrorReceived, e);
+  });
+
+  return connection;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.Client.prototype._newSession" id="apidoc.element.amqp10.Client.prototype._newSession">
+        function <span class="apidocSignatureSpan">amqp10.Client.prototype.</span>_newSession
+        <span class="apidocSignatureSpan">(conn)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">_newSession = function (conn) {
+  var self = this;
+  var session = new Session(conn);
+  session.on(Session.Unmapped, function(s) {
+    debug('unmapped');
+  });
+
+  session.on(Session.ErrorReceived, function(e) {
+    debug('session error: ', e);
+    self.emit(AMQPClient.ErrorReceived, e);
+  });
+
+  return session;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.Client.prototype._preventReconnect" id="apidoc.element.amqp10.Client.prototype._preventReconnect">
+        function <span class="apidocSignatureSpan">amqp10.Client.prototype.</span>_preventReconnect
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">_preventReconnect = function () {
+  this._reconnect = null;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.Client.prototype._shouldReconnect" id="apidoc.element.amqp10.Client.prototype._shouldReconnect">
+        function <span class="apidocSignatureSpan">amqp10.Client.prototype.</span>_shouldReconnect
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">_shouldReconnect = function () {
+  if (!this._connection || !this._reconnect) return false;
+  if (!this._timeouts ||
+      !this._timeouts.length &amp;&amp; !this.policy.reconnect.forever) return false;
+  return true;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.Client.prototype.connect" id="apidoc.element.amqp10.Client.prototype.connect">
+        function <span class="apidocSignatureSpan">amqp10.Client.prototype.</span>connect
+        <span class="apidocSignatureSpan">(url, policyOverrides)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">connect = function (url, policyOverrides) {
+  var self = this;
+  policyOverrides = policyOverrides || {};
+  var connectPolicy = u.deepMerge(policyOverrides, self.policy.connect);
+  return new Promise(function(resolve, reject) {
+    if (self._connection) {
+      self._connection.close();
+      self._clearConnectionState();
+    }
+
+    debug('connecting to: ' + url);
+    self._reconnect = self.connect.bind(self, url);
+    var address = self.policy.parseAddress(url);
+    self._defaultQueue = address.path.substr(1);
+    connectPolicy.options.hostname = address.host;
+    var saslMechanism = connectPolicy.saslMechanism;
+    var sasl = null;
+    if (saslMechanism) {
+      if (!u.includes(Sasl.Mechanism, saslMechanism)) {
+        throw new errors.NotImplementedError(
+          saslMechanism + ' is not a supported saslMechanism policy');
+      }
+      if (saslMechanism === Sasl.Mechanism.NONE) {
+        if (address.user) {
+          console.warn(
+              'Sasl disabled by policy, but credentials provided in endpoint URI');
+        }
+      } else if (saslMechanism === Sasl.Mechanism.PLAIN &amp;&amp; !address.user) {
+        throw new errors.AuthenticationError(
+            'Sasl PLAIN requested, but no credentials provided in endpoint URI');
+      } else {
+        sasl = new Sasl(saslMechanism);
+      }
+    } else if (address.user) {
+      // force SASL plain if no mechanism specified, but creds in URI
+      connectPolicy.saslMechanism = Sasl.Mechanism.PLAIN;
+      sasl = new Sasl(Sasl.Mechanism.PLAIN);
+    }
+    if (!!sasl &amp;&amp; !!address.vhost) {
+      sasl._remoteHostname = address.vhost;
+      connectPolicy.options.hostname = address.vhost;
+    }
+
+    self._connection = self._newConnection(connectPolicy);
+    self._connection.on(Connection.Connected, function(c) {
+      debug('connected');
+      self.emit(AMQPClient.ConnectionOpened);
+      if (self._session) {
+        debug('session already exists, re-using');
+        self._session.connection = self._connection;
+      } else {
+        self._session = self._newSession(c);
+      }
+
+      self._session.once(Session.Mapped, function(s) {
+        debug('mapped');
+        self.emit('connected');
+        resolve(self);
+      });
+
+      self._session.begin(self.policy.session);
+    });
+
+    self._connection.on(Connection.Disconnected, function() {
+      debug('disconnected');
+      self.emit('disconnected');
+      self.emit(AMQPClient.ConnectionClosed);
+      if (!self._shouldReconnect()) {
+        self._clearConnectionState(false);
+        return reject(new errors.DisconnectedError());
+      }
+
+      if (!self._timeouts.length)
+        self._timeouts = u.generateTimeouts(self.policy.reconnect);
+
+      setTimeout(function() {
+        return self._attemptReconnection().then(function() { resolve(self); });
+      }, self._timeouts.shift());
+    });
+
+    self._connection.open(address, sasl);
+  });
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+connecting against, connect, and then send/receive as necessary.  So a simple example for a local Apache Qpid
+server would look like:
+
+var AMQPClient = require('amqp10').Client,
+    Promise = require('bluebird');
+
+var client = new AMQPClient(); // Uses PolicyBase default policy
+client.<span class="apidocCodeKeywordSpan">connect</span>('amqp://localhost')
+  .then(function() {
+    return Promise.all([
+      client.createReceiver('amq.topic'),
+      client.createSender('amq.topic')
+    ]);
+  })
+  .spread(function(receiver, sender) {
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.Client.prototype.createReceiver" id="apidoc.element.amqp10.Client.prototype.createReceiver">
+        function <span class="apidocSignatureSpan">amqp10.Client.prototype.</span>createReceiver
+        <span class="apidocSignatureSpan">(address, policyOverrides)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">createReceiver = function (address, policyOverrides) {
+  if (!this._connection) {
+    throw new Error('Must connect before creating links');
+  }
+
+  address = this.policy.parseLinkAddress(address || this._defaultQueue);
+  policyOverrides = policyOverrides || {};
+
+  var linkName = u.linkName(address.name, policyOverrides),
+      linkPolicy = u.deepMerge(policyOverrides, {
+        attach: {
+          name: linkName,
+          source: { address: address.name },
+          target: { address: 'localhost' }
+        }
+      }, this.policy.receiverLink);
+
+  // if a subject has been provided then automatically set up a filter to
+  // match on that subject.
+  if (!!address.subject) {
+    if (address.subject === 'undefined' || address.subject === 'null') {
+      throw new errors.InvalidSubjectError(address.subject);
+    }
+
+    var filterSymbol = (address.subject.indexOf('*') || address.subject.indexOf('#')) ?
+      'apache.org:legacy-amqp-topic-binding:string' :
+      'apache.org:legacy-amqp-direct-binding:string';
+
+    linkPolicy.attach.source.filter = {};
+    linkPolicy.attach.source.filter[filterSymbol] =
+      translator(['described', ['symbol', filterSymbol], ['string', address.subject]]);
+  }
+
+  var self = this;
+  return new Promise(function(resolve, reject) {
+    var attach = function() {
+      var attachPromise = function(_err, _link) {
+        if (!!_err) return reject(_err);
+        return resolve(_link);
+      };
+
+      var link = self._session.createLink(linkPolicy);
+      link._onAttach.push(attachPromise);
+    };
+
+    attach();
+  });
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+var AMQPClient = require('amqp10').Client,
+    Promise = require('bluebird');
+
+var client = new AMQPClient(); // Uses PolicyBase default policy
+client.connect('amqp://localhost')
+  .then(function() {
+    return Promise.all([
+      client.<span class="apidocCodeKeywordSpan">createReceiver</span>('amq.topic'),
+      client.createSender('amq.topic')
+    ]);
+  })
+  .spread(function(receiver, sender) {
+    receiver.on('errorReceived', function(err) { // check for errors });
+    receiver.on('message', function(message) {
+      console.log('Rx message: ', message.body);
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.Client.prototype.createReceiverStream" id="apidoc.element.amqp10.Client.prototype.createReceiverStream">
+        function <span class="apidocSignatureSpan">amqp10.Client.prototype.</span>createReceiverStream
+        <span class="apidocSignatureSpan">(address, policyOverrides)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">createReceiverStream = function (address, policyOverrides) {
+  // Override default credit behavior, as the stream will handle flow. The
+  // creditQuantum will be used as the stream's highWatermark by default.
+  policyOverrides = u.deepMerge({
+    credit: function() {},
+  }, policyOverrides || {});
+
+  return this.createReceiver(address, policyOverrides)
+    .then(function(link) { return new ReceiverStream(link); });
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.Client.prototype.createSender" id="apidoc.element.amqp10.Client.prototype.createSender">
+        function <span class="apidocSignatureSpan">amqp10.Client.prototype.</span>createSender
+        <span class="apidocSignatureSpan">(address, policyOverrides)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">createSender = function (address, policyOverrides) {
+  if (!this._connection) {
+    throw new Error('Must connect before creating links');
+  }
+
+  address = this.policy.parseLinkAddress(address || this._defaultQueue);
+  policyOverrides = policyOverrides || {};
+
+  var linkName = u.linkName(address.name, policyOverrides),
+      linkPolicy = u.deepMerge(policyOverrides, {
+        attach: {
+          name: linkName,
+          source: { address: 'localhost' },
+          target: { address: address.name }
+        }
+      }, this.policy.senderLink);
+
+  if (!!address.subject &amp;&amp; this.policy.defaultSubjects) {
+    if (address.subject === 'undefined' || address.subject === 'null') {
+      throw new errors.InvalidSubjectError(address.subject);
+    }
+
+    linkPolicy.defaultSubject = address.subject;
+  }
+
+  var self = this;
+  return new Promise(function(resolve, reject) {
+    var attach = function() {
+      var attachPromise = function(_err, _link) {
+        if (!!_err) return reject(_err);
+        return resolve(_link);
+      };
+
+      var link = self._session.createLink(linkPolicy);
+      link._onAttach.push(attachPromise);
+    };
+
+    attach();
+  });
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+    Promise = require('bluebird');
+
+var client = new AMQPClient(); // Uses PolicyBase default policy
+client.connect('amqp://localhost')
+  .then(function() {
+    return Promise.all([
+      client.createReceiver('amq.topic'),
+      client.<span class="apidocCodeKeywordSpan">createSender</span>('amq.topic')
+    ]);
+  })
+  .spread(function(receiver, sender) {
+    receiver.on('errorReceived', function(err) { // check for errors });
+    receiver.on('message', function(message) {
+      console.log('Rx message: ', message.body);
+    });
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.Client.prototype.createSenderStream" id="apidoc.element.amqp10.Client.prototype.createSenderStream">
+        function <span class="apidocSignatureSpan">amqp10.Client.prototype.</span>createSenderStream
+        <span class="apidocSignatureSpan">(address, policyOverrides)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">createSenderStream = function (address, policyOverrides) {
+  return this.createSender(address, policyOverrides)
+    .then(function(link) { return new SenderStream(link, policyOverrides); });
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.Client.prototype.disconnect" id="apidoc.element.amqp10.Client.prototype.disconnect">
+        function <span class="apidocSignatureSpan">amqp10.Client.prototype.</span>disconnect
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">disconnect = function () {
+  var self = this;
+  return new Promise(function(resolve, reject) {
+    debug('disconnecting');
+    if (self._connection) {
+      self._preventReconnect();
+      var connection = self._connection;
+      self._clearConnectionState();
+      connection.once(Connection.Disconnected, function() {
+        debug('disconnected');
+        self.emit('disconnected');
+        connection = undefined;
+        resolve();
+      });
+      connection.close();
+    } else {
+      self.emit('disconnected');
+      resolve(); // Already disconnected, just deliver the promise.
+    }
+  });
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.amqp10.DescribedType" id="apidoc.module.amqp10.DescribedType">module amqp10.DescribedType</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.DescribedType.DescribedType" id="apidoc.element.amqp10.DescribedType.DescribedType">
+        function <span class="apidocSignatureSpan">amqp10.</span>DescribedType
+        <span class="apidocSignatureSpan">(descriptorOrType, value)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function DescribedType(descriptorOrType, value) {
+  if (descriptorOrType &amp;&amp; descriptorOrType.prototype &amp;&amp; descriptorOrType.prototype.Descriptor)
+    this.descriptor = descriptorOrType.prototype.Descriptor.code;
+  else
+    this.descriptor = descriptorOrType;
+
+  this.value = value;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.amqp10.DescribedType.prototype" id="apidoc.module.amqp10.DescribedType.prototype">module amqp10.DescribedType.prototype</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.DescribedType.prototype.getValue" id="apidoc.element.amqp10.DescribedType.prototype.getValue">
+        function <span class="apidocSignatureSpan">amqp10.DescribedType.prototype.</span>getValue
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">getValue = function () {
+  return this.value;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.amqp10.Errors" id="apidoc.module.amqp10.Errors">module amqp10.Errors</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.Errors.AuthenticationError" id="apidoc.element.amqp10.Errors.AuthenticationError">
+        function <span class="apidocSignatureSpan">amqp10.Errors.</span>AuthenticationError
+        <span class="apidocSignatureSpan">(msg)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">AuthenticationError = function (msg) {
+  errors.BaseError.call(this, msg);
+  this.name = 'AmqpAuthenticationError';
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.Errors.BaseError" id="apidoc.element.amqp10.Errors.BaseError">
+        function <span class="apidocSignatureSpan">amqp10.Errors.</span>BaseError
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">BaseError = function () {
+  var tmp = Error.apply(this, arguments);
+  tmp.name = this.name = 'AmqpError';
+
+  this.message = tmp.message;
+  if (Error.captureStackTrace)
+    Error.captureStackTrace(this, this.constructor);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.Errors.ConnectionError" id="apidoc.element.amqp10.Errors.ConnectionError">
+        function <span class="apidocSignatureSpan">amqp10.Errors.</span>ConnectionError
+        <span class="apidocSignatureSpan">(msg)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">ConnectionError = function (msg) {
+  errors.BaseError.call(this, msg);
+  this.name = 'AmqpConnectionError';
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.Errors.DisconnectedError" id="apidoc.element.amqp10.Errors.DisconnectedError">
+        function <span class="apidocSignatureSpan">amqp10.Errors.</span>DisconnectedError
+        <span class="apidocSignatureSpan">(msg)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">DisconnectedError = function (msg) {
+  errors.ConnectionError.call(this, msg);
+  this.name = 'AmqpDisconnectedError';
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.Errors.EncodingError" id="apidoc.element.amqp10.Errors.EncodingError">
+        function <span class="apidocSignatureSpan">amqp10.Errors.</span>EncodingError
+        <span class="apidocSignatureSpan">(value, message)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">EncodingError = function (value, message) {
+  message = message || 'encoding failure';
+  errors.BaseError.call(this, message);
+  this.name = 'AmqpEncodingError';
+  this.value = value;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.Errors.InvalidStateError" id="apidoc.element.amqp10.Errors.InvalidStateError">
+        function <span class="apidocSignatureSpan">amqp10.Errors.</span>InvalidStateError
+        <span class="apidocSignatureSpan">(msg)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">InvalidStateError = function (msg) {
+  errors.BaseError.call(this, msg);
+  this.name = 'AmqpInvalidStateError';
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.Errors.InvalidSubjectError" id="apidoc.element.amqp10.Errors.InvalidSubjectError">
+        function <span class="apidocSignatureSpan">amqp10.Errors.</span>InvalidSubjectError
+        <span class="apidocSignatureSpan">(subject)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">InvalidSubjectError = function (subject) {
+  errors.BaseError.call(this, 'Invalid subject: ' + subject);
+  this.name = 'AmqpInvalidSubjectError';
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.Errors.MalformedHeaderError" id="apidoc.element.amqp10.Errors.MalformedHeaderError">
+        function <span class="apidocSignatureSpan">amqp10.Errors.</span>MalformedHeaderError
+        <span class="apidocSignatureSpan">(header)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">MalformedHeaderError = function (header) {
+  errors.BaseError.call(this, 'malformed header: ' + header);
+  this.name = 'AmqpMalformedHeaderError';
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.Errors.MalformedPayloadError" id="apidoc.element.amqp10.Errors.MalformedPayloadError">
+        function <span class="apidocSignatureSpan">amqp10.Errors.</span>MalformedPayloadError
+        <span class="apidocSignatureSpan">(payload)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">MalformedPayloadError = function (payload) {
+  errors.BaseError.call(this, 'malformed payload: ' + payload);
+  this.name = 'AmqpMalformedPayloadError';
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.Errors.NotConnectedError" id="apidoc.element.amqp10.Errors.NotConnectedError">
+        function <span class="apidocSignatureSpan">amqp10.Errors.</span>NotConnectedError
+        <span class="apidocSignatureSpan">(msg)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">NotConnectedError = function (msg) {
+  errors.BaseError.call(this, msg);
+  this.name = 'AmqpNotConnectedError';
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.Errors.NotImplementedError" id="apidoc.element.amqp10.Errors.NotImplementedError">
+        function <span class="apidocSignatureSpan">amqp10.Errors.</span>NotImplementedError
+        <span class="apidocSignatureSpan">(feature)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">NotImplementedError = function (feature) {
+  errors.BaseError.call(this, feature + ' not yet implemented');
+  this.name = 'AmqpNotImplementedError';
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.Errors.OverCapacityError" id="apidoc.element.amqp10.Errors.OverCapacityError">
+        function <span class="apidocSignatureSpan">amqp10.Errors.</span>OverCapacityError
+        <span class="apidocSignatureSpan">(msg)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">OverCapacityError = function (msg) {
+  errors.BaseError.call(this, msg);
+  this.name = 'AmqpOverCapacityError';
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.Errors.ProtocolError" id="apidoc.element.amqp10.Errors.ProtocolError">
+        function <span class="apidocSignatureSpan">amqp10.Errors.</span>ProtocolError
+        <span class="apidocSignatureSpan">(condition, description, errorInfo)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">ProtocolError = function (condition, description, errorInfo) {
+  errors.BaseError.call(this, condition + ':' + (description || 'no description'));
+  this.name = 'AmqpProtocolError';
+
+  this.condition = condition;
+  this.description = description;
+  this.errorInfo = errorInfo;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.Errors.TransportError" id="apidoc.element.amqp10.Errors.TransportError">
+        function <span class="apidocSignatureSpan">amqp10.Errors.</span>TransportError
+        <span class="apidocSignatureSpan">(msg)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">TransportError = function (msg) {
+  errors.BaseError.call(this, msg);
+  this.name = 'AmqpTransportError';
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.Errors.VersionError" id="apidoc.element.amqp10.Errors.VersionError">
+        function <span class="apidocSignatureSpan">amqp10.Errors.</span>VersionError
+        <span class="apidocSignatureSpan">(msg)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">VersionError = function (msg) {
+  errors.BaseError.call(this, msg);
+  this.name = 'AmqpVersionError';
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.Errors.wrapProtocolError" id="apidoc.element.amqp10.Errors.wrapProtocolError">
+        function <span class="apidocSignatureSpan">amqp10.Errors.</span>wrapProtocolError
+        <span class="apidocSignatureSpan">(err)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">wrapProtocolError = function (err) {
+  if (err instanceof AMQPError) {
+    return new errors.ProtocolError(err.condition, err.description, err.info);
+  }
+
+  return err;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.amqp10.Errors.AuthenticationError" id="apidoc.module.amqp10.Errors.AuthenticationError">module amqp10.Errors.AuthenticationError</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.Errors.AuthenticationError.AuthenticationError" id="apidoc.element.amqp10.Errors.AuthenticationError.AuthenticationError">
+        function <span class="apidocSignatureSpan">amqp10.Errors.</span>AuthenticationError
+        <span class="apidocSignatureSpan">(msg)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">AuthenticationError = function (msg) {
+  errors.BaseError.call(this, msg);
+  this.name = 'AmqpAuthenticationError';
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.Errors.AuthenticationError.super_" id="apidoc.element.amqp10.Errors.AuthenticationError.super_">
+        function <span class="apidocSignatureSpan">amqp10.Errors.AuthenticationError.</span>super_
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">super_ = function () {
+  var tmp = Error.apply(this, arguments);
+  tmp.name = this.name = 'AmqpError';
+
+  this.message = tmp.message;
+  if (Error.captureStackTrace)
+    Error.captureStackTrace(this, this.constructor);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.amqp10.Errors.BaseError" id="apidoc.module.amqp10.Errors.BaseError">module amqp10.Errors.BaseError</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.Errors.BaseError.BaseError" id="apidoc.element.amqp10.Errors.BaseError.BaseError">
+        function <span class="apidocSignatureSpan">amqp10.Errors.</span>BaseError
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">BaseError = function () {
+  var tmp = Error.apply(this, arguments);
+  tmp.name = this.name = 'AmqpError';
+
+  this.message = tmp.message;
+  if (Error.captureStackTrace)
+    Error.captureStackTrace(this, this.constructor);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.Errors.BaseError.super_" id="apidoc.element.amqp10.Errors.BaseError.super_">
+        function <span class="apidocSignatureSpan">amqp10.Errors.BaseError.</span>super_
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function Error() { [native code] }</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.amqp10.Errors.ConnectionError" id="apidoc.module.amqp10.Errors.ConnectionError">module amqp10.Errors.ConnectionError</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.Errors.ConnectionError.ConnectionError" id="apidoc.element.amqp10.Errors.ConnectionError.ConnectionError">
+        function <span class="apidocSignatureSpan">amqp10.Errors.</span>ConnectionError
+        <span class="apidocSignatureSpan">(msg)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">ConnectionError = function (msg) {
+  errors.BaseError.call(this, msg);
+  this.name = 'AmqpConnectionError';
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.Errors.ConnectionError.super_" id="apidoc.element.amqp10.Errors.ConnectionError.super_">
+        function <span class="apidocSignatureSpan">amqp10.Errors.ConnectionError.</span>super_
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">super_ = function () {
+  var tmp = Error.apply(this, arguments);
+  tmp.name = this.name = 'AmqpError';
+
+  this.message = tmp.message;
+  if (Error.captureStackTrace)
+    Error.captureStackTrace(this, this.constructor);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.amqp10.Errors.DisconnectedError" id="apidoc.module.amqp10.Errors.DisconnectedError">module amqp10.Errors.DisconnectedError</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.Errors.DisconnectedError.DisconnectedError" id="apidoc.element.amqp10.Errors.DisconnectedError.DisconnectedError">
+        function <span class="apidocSignatureSpan">amqp10.Errors.</span>DisconnectedError
+        <span class="apidocSignatureSpan">(msg)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">DisconnectedError = function (msg) {
+  errors.ConnectionError.call(this, msg);
+  this.name = 'AmqpDisconnectedError';
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.Errors.DisconnectedError.super_" id="apidoc.element.amqp10.Errors.DisconnectedError.super_">
+        function <span class="apidocSignatureSpan">amqp10.Errors.DisconnectedError.</span>super_
+        <span class="apidocSignatureSpan">(msg)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">super_ = function (msg) {
+  errors.BaseError.call(this, msg);
+  this.name = 'AmqpConnectionError';
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.amqp10.Errors.EncodingError" id="apidoc.module.amqp10.Errors.EncodingError">module amqp10.Errors.EncodingError</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.Errors.EncodingError.EncodingError" id="apidoc.element.amqp10.Errors.EncodingError.EncodingError">
+        function <span class="apidocSignatureSpan">amqp10.Errors.</span>EncodingError
+        <span class="apidocSignatureSpan">(value, message)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">EncodingError = function (value, message) {
+  message = message || 'encoding failure';
+  errors.BaseError.call(this, message);
+  this.name = 'AmqpEncodingError';
+  this.value = value;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.Errors.EncodingError.super_" id="apidoc.element.amqp10.Errors.EncodingError.super_">
+        function <span class="apidocSignatureSpan">amqp10.Errors.EncodingError.</span>super_
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">super_ = function () {
+  var tmp = Error.apply(this, arguments);
+  tmp.name = this.name = 'AmqpError';
+
+  this.message = tmp.message;
+  if (Error.captureStackTrace)
+    Error.captureStackTrace(this, this.constructor);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.amqp10.Errors.InvalidStateError" id="apidoc.module.amqp10.Errors.InvalidStateError">module amqp10.Errors.InvalidStateError</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.Errors.InvalidStateError.InvalidStateError" id="apidoc.element.amqp10.Errors.InvalidStateError.InvalidStateError">
+        function <span class="apidocSignatureSpan">amqp10.Errors.</span>InvalidStateError
+        <span class="apidocSignatureSpan">(msg)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">InvalidStateError = function (msg) {
+  errors.BaseError.call(this, msg);
+  this.name = 'AmqpInvalidStateError';
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.Errors.InvalidStateError.super_" id="apidoc.element.amqp10.Errors.InvalidStateError.super_">
+        function <span class="apidocSignatureSpan">amqp10.Errors.InvalidStateError.</span>super_
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">super_ = function () {
+  var tmp = Error.apply(this, arguments);
+  tmp.name = this.name = 'AmqpError';
+
+  this.message = tmp.message;
+  if (Error.captureStackTrace)
+    Error.captureStackTrace(this, this.constructor);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.amqp10.Errors.InvalidSubjectError" id="apidoc.module.amqp10.Errors.InvalidSubjectError">module amqp10.Errors.InvalidSubjectError</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.Errors.InvalidSubjectError.InvalidSubjectError" id="apidoc.element.amqp10.Errors.InvalidSubjectError.InvalidSubjectError">
+        function <span class="apidocSignatureSpan">amqp10.Errors.</span>InvalidSubjectError
+        <span class="apidocSignatureSpan">(subject)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">InvalidSubjectError = function (subject) {
+  errors.BaseError.call(this, 'Invalid subject: ' + subject);
+  this.name = 'AmqpInvalidSubjectError';
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.Errors.InvalidSubjectError.super_" id="apidoc.element.amqp10.Errors.InvalidSubjectError.super_">
+        function <span class="apidocSignatureSpan">amqp10.Errors.InvalidSubjectError.</span>super_
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">super_ = function () {
+  var tmp = Error.apply(this, arguments);
+  tmp.name = this.name = 'AmqpError';
+
+  this.message = tmp.message;
+  if (Error.captureStackTrace)
+    Error.captureStackTrace(this, this.constructor);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.amqp10.Errors.MalformedHeaderError" id="apidoc.module.amqp10.Errors.MalformedHeaderError">module amqp10.Errors.MalformedHeaderError</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.Errors.MalformedHeaderError.MalformedHeaderError" id="apidoc.element.amqp10.Errors.MalformedHeaderError.MalformedHeaderError">
+        function <span class="apidocSignatureSpan">amqp10.Errors.</span>MalformedHeaderError
+        <span class="apidocSignatureSpan">(header)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">MalformedHeaderError = function (header) {
+  errors.BaseError.call(this, 'malformed header: ' + header);
+  this.name = 'AmqpMalformedHeaderError';
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.Errors.MalformedHeaderError.super_" id="apidoc.element.amqp10.Errors.MalformedHeaderError.super_">
+        function <span class="apidocSignatureSpan">amqp10.Errors.MalformedHeaderError.</span>super_
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">super_ = function () {
+  var tmp = Error.apply(this, arguments);
+  tmp.name = this.name = 'AmqpError';
+
+  this.message = tmp.message;
+  if (Error.captureStackTrace)
+    Error.captureStackTrace(this, this.constructor);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.amqp10.Errors.MalformedPayloadError" id="apidoc.module.amqp10.Errors.MalformedPayloadError">module amqp10.Errors.MalformedPayloadError</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.Errors.MalformedPayloadError.MalformedPayloadError" id="apidoc.element.amqp10.Errors.MalformedPayloadError.MalformedPayloadError">
+        function <span class="apidocSignatureSpan">amqp10.Errors.</span>MalformedPayloadError
+        <span class="apidocSignatureSpan">(payload)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">MalformedPayloadError = function (payload) {
+  errors.BaseError.call(this, 'malformed payload: ' + payload);
+  this.name = 'AmqpMalformedPayloadError';
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.Errors.MalformedPayloadError.super_" id="apidoc.element.amqp10.Errors.MalformedPayloadError.super_">
+        function <span class="apidocSignatureSpan">amqp10.Errors.MalformedPayloadError.</span>super_
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">super_ = function () {
+  var tmp = Error.apply(this, arguments);
+  tmp.name = this.name = 'AmqpError';
+
+  this.message = tmp.message;
+  if (Error.captureStackTrace)
+    Error.captureStackTrace(this, this.constructor);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.amqp10.Errors.NotConnectedError" id="apidoc.module.amqp10.Errors.NotConnectedError">module amqp10.Errors.NotConnectedError</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.Errors.NotConnectedError.NotConnectedError" id="apidoc.element.amqp10.Errors.NotConnectedError.NotConnectedError">
+        function <span class="apidocSignatureSpan">amqp10.Errors.</span>NotConnectedError
+        <span class="apidocSignatureSpan">(msg)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">NotConnectedError = function (msg) {
+  errors.BaseError.call(this, msg);
+  this.name = 'AmqpNotConnectedError';
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.Errors.NotConnectedError.super_" id="apidoc.element.amqp10.Errors.NotConnectedError.super_">
+        function <span class="apidocSignatureSpan">amqp10.Errors.NotConnectedError.</span>super_
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">super_ = function () {
+  var tmp = Error.apply(this, arguments);
+  tmp.name = this.name = 'AmqpError';
+
+  this.message = tmp.message;
+  if (Error.captureStackTrace)
+    Error.captureStackTrace(this, this.constructor);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.amqp10.Errors.NotImplementedError" id="apidoc.module.amqp10.Errors.NotImplementedError">module amqp10.Errors.NotImplementedError</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.Errors.NotImplementedError.NotImplementedError" id="apidoc.element.amqp10.Errors.NotImplementedError.NotImplementedError">
+        function <span class="apidocSignatureSpan">amqp10.Errors.</span>NotImplementedError
+        <span class="apidocSignatureSpan">(feature)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">NotImplementedError = function (feature) {
+  errors.BaseError.call(this, feature + ' not yet implemented');
+  this.name = 'AmqpNotImplementedError';
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.Errors.NotImplementedError.super_" id="apidoc.element.amqp10.Errors.NotImplementedError.super_">
+        function <span class="apidocSignatureSpan">amqp10.Errors.NotImplementedError.</span>super_
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">super_ = function () {
+  var tmp = Error.apply(this, arguments);
+  tmp.name = this.name = 'AmqpError';
+
+  this.message = tmp.message;
+  if (Error.captureStackTrace)
+    Error.captureStackTrace(this, this.constructor);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.amqp10.Errors.OverCapacityError" id="apidoc.module.amqp10.Errors.OverCapacityError">module amqp10.Errors.OverCapacityError</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.Errors.OverCapacityError.OverCapacityError" id="apidoc.element.amqp10.Errors.OverCapacityError.OverCapacityError">
+        function <span class="apidocSignatureSpan">amqp10.Errors.</span>OverCapacityError
+        <span class="apidocSignatureSpan">(msg)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">OverCapacityError = function (msg) {
+  errors.BaseError.call(this, msg);
+  this.name = 'AmqpOverCapacityError';
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.Errors.OverCapacityError.super_" id="apidoc.element.amqp10.Errors.OverCapacityError.super_">
+        function <span class="apidocSignatureSpan">amqp10.Errors.OverCapacityError.</span>super_
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">super_ = function () {
+  var tmp = Error.apply(this, arguments);
+  tmp.name = this.name = 'AmqpError';
+
+  this.message = tmp.message;
+  if (Error.captureStackTrace)
+    Error.captureStackTrace(this, this.constructor);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.amqp10.Errors.ProtocolError" id="apidoc.module.amqp10.Errors.ProtocolError">module amqp10.Errors.ProtocolError</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.Errors.ProtocolError.ProtocolError" id="apidoc.element.amqp10.Errors.ProtocolError.ProtocolError">
+        function <span class="apidocSignatureSpan">amqp10.Errors.</span>ProtocolError
+        <span class="apidocSignatureSpan">(condition, description, errorInfo)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">ProtocolError = function (condition, description, errorInfo) {
+  errors.BaseError.call(this, condition + ':' + (description || 'no description'));
+  this.name = 'AmqpProtocolError';
+
+  this.condition = condition;
+  this.description = description;
+  this.errorInfo = errorInfo;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.Errors.ProtocolError.super_" id="apidoc.element.amqp10.Errors.ProtocolError.super_">
+        function <span class="apidocSignatureSpan">amqp10.Errors.ProtocolError.</span>super_
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">super_ = function () {
+  var tmp = Error.apply(this, arguments);
+  tmp.name = this.name = 'AmqpError';
+
+  this.message = tmp.message;
+  if (Error.captureStackTrace)
+    Error.captureStackTrace(this, this.constructor);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.amqp10.Errors.TransportError" id="apidoc.module.amqp10.Errors.TransportError">module amqp10.Errors.TransportError</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.Errors.TransportError.TransportError" id="apidoc.element.amqp10.Errors.TransportError.TransportError">
+        function <span class="apidocSignatureSpan">amqp10.Errors.</span>TransportError
+        <span class="apidocSignatureSpan">(msg)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">TransportError = function (msg) {
+  errors.BaseError.call(this, msg);
+  this.name = 'AmqpTransportError';
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.Errors.TransportError.super_" id="apidoc.element.amqp10.Errors.TransportError.super_">
+        function <span class="apidocSignatureSpan">amqp10.Errors.TransportError.</span>super_
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">super_ = function () {
+  var tmp = Error.apply(this, arguments);
+  tmp.name = this.name = 'AmqpError';
+
+  this.message = tmp.message;
+  if (Error.captureStackTrace)
+    Error.captureStackTrace(this, this.constructor);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.amqp10.Errors.VersionError" id="apidoc.module.amqp10.Errors.VersionError">module amqp10.Errors.VersionError</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.Errors.VersionError.VersionError" id="apidoc.element.amqp10.Errors.VersionError.VersionError">
+        function <span class="apidocSignatureSpan">amqp10.Errors.</span>VersionError
+        <span class="apidocSignatureSpan">(msg)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">VersionError = function (msg) {
+  errors.BaseError.call(this, msg);
+  this.name = 'AmqpVersionError';
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.Errors.VersionError.super_" id="apidoc.element.amqp10.Errors.VersionError.super_">
+        function <span class="apidocSignatureSpan">amqp10.Errors.VersionError.</span>super_
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">super_ = function () {
+  var tmp = Error.apply(this, arguments);
+  tmp.name = this.name = 'AmqpError';
+
+  this.message = tmp.message;
+  if (Error.captureStackTrace)
+    Error.captureStackTrace(this, this.constructor);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.amqp10.Policy" id="apidoc.module.amqp10.Policy">module amqp10.Policy</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.Policy.PolicyBase" id="apidoc.element.amqp10.Policy.PolicyBase">
+        function <span class="apidocSignatureSpan">amqp10.Policy.</span>PolicyBase
+        <span class="apidocSignatureSpan">(overrides)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function Policy(overrides) {
+  if (!(this instanceof Policy))
+    return new Policy(overrides);
+
+  u.defaults(this, overrides, {
+<span class="apidocCodeCommentSpan">    /**
+     * support subjects in link names with the following characteristics:
+     * receiver: "amq.topic/news", means a filter on the ReceiverLink will be made
+     *           for messages send with a subject "news"
+     *
+     * sender: "amq.topic/news", will automatically set "news" as the subject for
+     *         messages sent on this link, unless the user explicitly overrides
+     *         the subject.
+     *
+     * @name Policy#defaultSubjects
+     * @property {boolean}
+     */
+</span>    defaultSubjects: true,
+
+    /**
+     * Options related to the reconnect behavior of the client. If this value is `null` reconnect
+     * is effectively disabled
+     *
+     * @name Policy#reconnect
+     * @type {Object|null}
+     * @property {number|null} [retries] How many times to attempt reconnection
+     * @property {string} [strategy='fibonacci'] The algorithm used for backoff. Can be `fibonacci` or `exponential`
+     * @property {boolean} [forever] Whether or not to attempt reconnection forever
+     */
+    reconnect: {
+      retries: 10,
+      strategy: 'fibonacci', // || 'exponential'
+      forever: true
+    },
+
+    /**
+     * @name Policy#connect
+     * @type {object}
+     * @property {object} options Options passed into the open performative on initial connection
+     * @property {string|function} options.containerId The id of the source container
+     * @property {string} options.hostname The name of the target host
+     * @property {number} options.maxFrameSize The largest frame size that the sending peer is able to accept on this connection
+     * @property {number} options.channelMax The channel-max value is the highest channel number that can be used on the connection
+     * @property {number} options.idleTimeout The idle timeout required by the sender
+     * @property {array&lt;string&gt;|null} options.outgoingLocales A list of the locales that the peer supports for sending informational
+ text
+     * @property {array&lt;string&gt;|null} options.incomingLocales A list of locales that the sending peer permits for incoming informational
+ text
+     * @property {array&lt;string&gt;|null} options.offeredCapabilities A list of extension capabilities the peer may use if the sender
+ offers them
+     * @property {array|null} options.desiredCapabilities The desired-capability list defines which extension capabilities the sender
+ may use if the receiver offers them
+     * @property {object|null} options.properties The properties map contains a set of fields intended to indicate information about
+ the connection and its container
+     * @property {object} sslOptions Options used to initiate a TLS/SSL connection, with the exception of the following options
+all options in this object are passed directly to node's [tls.connect](https://nodejs.org/api/tls.html#tls_tls_connect_options_callback
+) method.
+     * @property {string|null} sslOptions.keyFile Path to the file containing the private key for the client
+     * @property {string|null} sslOptions.certFile Path to the file containing the certificate key for the client
+     * @property {string|null} sslOptions.caFile Path to the file containing the trusted cert for the client
+     * @property {boolean} sslOptions.rejectUnauthorized
+     * @property {string|null} saslMechanism Allows the sasl mechanism to be overriden by policy
+     */
+    connect: {
+      options: {
+        containerId: containerName(),
+        hostname: 'localhost',
+        maxFrameSize: constants.defaultMaxFrameSize,
+        channelMax: constants.defaultChannelMax,
+        idleTimeout: constants.defaultIdleTimeout,
+        outgoingLocales: constants.defaultOutgoingLocales,
+        incomingLocales: constants.defaultIncomingLocales,
+        offeredCapabilities: null,
+        desiredCapabilities: null,
+        properties: {},
+      },
+      sslOptions: {
+        keyFile: null,
+        certFile: null,
+        caFile: null,
+        rejectUnauthorized: false
+      },
+      saslMechanism: null
+    },
+
+    /* ...</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.Policy.merge" id="apidoc.element.amqp10.Policy.merge">
+        function <span class="apidocSignatureSpan">amqp10.Policy.</span>merge
+        <span class="apidocSignatureSpan">(overrides, base)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">merge = function (overrides, base) { return pu.Merge(overrides, base || new Policy()); }</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+By default send promises are resolved when a disposition frame is received from the remote link for the
+sent message, at this point the message is considered "settled".  To tune this behavior, you can tweak
+the policy you give to AMQPClient on construction.  For instance, to force send promises to be resolved
+immediately on successful sending of the payload, you would build AMQPClient like so:
+
+    var AMQPClient = require('amqp10').Client,
+        Policy = require('amqp10').Policy;
+    var client = new AMQPClient(Policy.<span class="apidocCodeKeywordSpan">merge</span>({
+      senderLinkPolicy: {
+        callbackPolicy: Policy.Utils.SenderCallbackPolicies.OnSent
+      }
+    }, Policy.DefaultPolicy));
+
+In addition to the above, you can also tune how message link credit is doled out (for throttling), as
+well as most other AMQP behaviors, all through policy overrides.  See [DefaultPolicy](https://github.com/noodlefrenzy/node-amqp10
+/blob/master/lib/policies/default_policy.js)
+...</pre></li>
+    </ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.amqp10.Policy.PolicyBase" id="apidoc.module.amqp10.Policy.PolicyBase">module amqp10.Policy.PolicyBase</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.Policy.PolicyBase.PolicyBase" id="apidoc.element.amqp10.Policy.PolicyBase.PolicyBase">
+        function <span class="apidocSignatureSpan">amqp10.Policy.</span>PolicyBase
+        <span class="apidocSignatureSpan">(overrides)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function Policy(overrides) {
+  if (!(this instanceof Policy))
+    return new Policy(overrides);
+
+  u.defaults(this, overrides, {
+<span class="apidocCodeCommentSpan">    /**
+     * support subjects in link names with the following characteristics:
+     * receiver: "amq.topic/news", means a filter on the ReceiverLink will be made
+     *           for messages send with a subject "news"
+     *
+     * sender: "amq.topic/news", will automatically set "news" as the subject for
+     *         messages sent on this link, unless the user explicitly overrides
+     *         the subject.
+     *
+     * @name Policy#defaultSubjects
+     * @property {boolean}
+     */
+</span>    defaultSubjects: true,
+
+    /**
+     * Options related to the reconnect behavior of the client. If this value is `null` reconnect
+     * is effectively disabled
+     *
+     * @name Policy#reconnect
+     * @type {Object|null}
+     * @property {number|null} [retries] How many times to attempt reconnection
+     * @property {string} [strategy='fibonacci'] The algorithm used for backoff. Can be `fibonacci` or `exponential`
+     * @property {boolean} [forever] Whether or not to attempt reconnection forever
+     */
+    reconnect: {
+      retries: 10,
+      strategy: 'fibonacci', // || 'exponential'
+      forever: true
+    },
+
+    /**
+     * @name Policy#connect
+     * @type {object}
+     * @property {object} options Options passed into the open performative on initial connection
+     * @property {string|function} options.containerId The id of the source container
+     * @property {string} options.hostname The name of the target host
+     * @property {number} options.maxFrameSize The largest frame size that the sending peer is able to accept on this connection
+     * @property {number} options.channelMax The channel-max value is the highest channel number that can be used on the connection
+     * @property {number} options.idleTimeout The idle timeout required by the sender
+     * @property {array&lt;string&gt;|null} options.outgoingLocales A list of the locales that the peer supports for sending informational
+ text
+     * @property {array&lt;string&gt;|null} options.incomingLocales A list of locales that the sending peer permits for incoming informational
+ text
+     * @property {array&lt;string&gt;|null} options.offeredCapabilities A list of extension capabilities the peer may use if the sender
+ offers them
+     * @property {array|null} options.desiredCapabilities The desired-capability list defines which extension capabilities the sender
+ may use if the receiver offers them
+     * @property {object|null} options.properties The properties map contains a set of fields intended to indicate information about
+ the connection and its container
+     * @property {object} sslOptions Options used to initiate a TLS/SSL connection, with the exception of the following options
+all options in this object are passed directly to node's [tls.connect](https://nodejs.org/api/tls.html#tls_tls_connect_options_callback
+) method.
+     * @property {string|null} sslOptions.keyFile Path to the file containing the private key for the client
+     * @property {string|null} sslOptions.certFile Path to the file containing the certificate key for the client
+     * @property {string|null} sslOptions.caFile Path to the file containing the trusted cert for the client
+     * @property {boolean} sslOptions.rejectUnauthorized
+     * @property {string|null} saslMechanism Allows the sasl mechanism to be overriden by policy
+     */
+    connect: {
+      options: {
+        containerId: containerName(),
+        hostname: 'localhost',
+        maxFrameSize: constants.defaultMaxFrameSize,
+        channelMax: constants.defaultChannelMax,
+        idleTimeout: constants.defaultIdleTimeout,
+        outgoingLocales: constants.defaultOutgoingLocales,
+        incomingLocales: constants.defaultIncomingLocales,
+        offeredCapabilities: null,
+        desiredCapabilities: null,
+        properties: {},
+      },
+      sslOptions: {
+        keyFile: null,
+        certFile: null,
+        caFile: null,
+        rejectUnauthorized: false
+      },
+      saslMechanism: null
+    },
+
+    /* ...</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.amqp10.Policy.PolicyBase.prototype" id="apidoc.module.amqp10.Policy.PolicyBase.prototype">module amqp10.Policy.PolicyBase.prototype</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.Policy.PolicyBase.prototype.parseAddress" id="apidoc.element.amqp10.Policy.PolicyBase.prototype.parseAddress">
+        function <span class="apidocSignatureSpan">amqp10.Policy.PolicyBase.prototype.</span>parseAddress
+        <span class="apidocSignatureSpan">(address)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">parseAddress = function (address) {
+  var parsedAddress = url.parse(address);
+  var result = {
+    host: parsedAddress.hostname || parsedAddress.href,
+    path: (parsedAddress.path &amp;&amp; parsedAddress.path !== address) ?
+      parsedAddress.path : '/',
+    protocol: parsedAddress.protocol ?
+      parsedAddress.protocol.slice(0, -1).toLowerCase() : 'amqp',
+    href: parsedAddress.href
+  };
+
+  if (!!parsedAddress.port) {
+    result.port = parseInt(parsedAddress.port);
+  } else {
+    switch (result.protocol.toLowerCase()) {
+      case 'amqp': result.port = constants.defaultPort; break;
+      case 'amqps': result.port = constants.defaultTlsPort; break;
+    }
+  }
+
+  result.rootUri = result.protocol + '://';
+  if (!!parsedAddress.auth) {
+    result.rootUri += parsedAddress.auth + '@';
+
+    var userPass = parsedAddress.auth.split(':', 2);
+    result.user = userPass[0];
+    result.pass = userPass[1] || null;
+  }
+
+  result.rootUri += result.host + ':' + result.port;
+  return result;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.Policy.PolicyBase.prototype.parseLinkAddress" id="apidoc.element.amqp10.Policy.PolicyBase.prototype.parseLinkAddress">
+        function <span class="apidocSignatureSpan">amqp10.Policy.PolicyBase.prototype.</span>parseLinkAddress
+        <span class="apidocSignatureSpan">(address)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">parseLinkAddress = function (address) {
+  // @todo: this "parsing" should be far more rigorous
+  if (!this.defaultSubjects) {
+    return { name: address };
+  }
+
+  var parts = address.split('/');
+  var result = { name: parts.shift() };
+  if (parts.length) result.subject = parts.shift();
+  return result;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.amqp10.Policy.Utils" id="apidoc.module.amqp10.Policy.Utils">module amqp10.Policy.Utils</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.Policy.Utils.Merge" id="apidoc.element.amqp10.Policy.Utils.Merge">
+        function <span class="apidocSignatureSpan">amqp10.Policy.Utils.</span>Merge
+        <span class="apidocSignatureSpan">(newPolicy, base)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function merge(newPolicy, base) {
+  var policy = u.deepMerge(newPolicy, base);
+  fixDeprecatedOptions(policy);
+  return policy;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.Policy.Utils.RenewOnSettle" id="apidoc.element.amqp10.Policy.Utils.RenewOnSettle">
+        function <span class="apidocSignatureSpan">amqp10.Policy.Utils.</span>RenewOnSettle
+        <span class="apidocSignatureSpan">(initialCredit, threshold, basePolicy)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">RenewOnSettle = function (initialCredit, threshold, basePolicy) {
+  basePolicy = basePolicy || {};
+
+  return merge({
+    receiverLink: {
+      credit: CreditPolicies.RefreshSettled(threshold),
+      creditQuantum: initialCredit,
+      attach: {
+        rcvSettleMode: constants.receiverSettleMode.settleOnDisposition
+      }
+    }
+  }, basePolicy);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+
+Flow control in AMQP occurs at both the `Session` and `Link` layers. Using our default policy, we start out with some sensible Session
+ windows and Link credits, and renew those every time they get to the half-way point. In addition, receiver links start in "
+;auto-settle" mode, which means that the sender side can consider the message "settled" as soon as it's sent
+. However, _all_ of those settings are easily tune-able through Policy overrides (`Policy.merge(&lt;overrides&gt;, &lt;base
+ policy&gt;)`).
+
+For instance. we've provided a convenience helper for throttling your receiver links to only renew credits on messages they
+'ve "settled". To use this with Azure ServiceBus Queues for instance, it would look like:
+
+   var AMQPClient = require('amqp10').Client,
+       Policy = require('amqp10').Policy;
+   var client = new AMQPClient(Policy.Utils.<span class="apidocCodeKeywordSpan">RenewOnSettle</span>(1, 1, Policy.ServiceBusQueue
+));
+
+Where the first number is the initial credit, and the second is the _threshold_ - once remaining credit goes below that, we will
+ give out more credit by the number of messages we've settled. In this case we're setting up the client for one-by-one
+ message processing. Behind the scenes, this does the following:
+
+1. Sets the Link's creditQuantum to the first number (1), which you can do for yourself via the Policy mix-in `{ receiverLink
+: { creditQuantum: 1 } }`
+
+2. Sets the Link to not auto-settle messages at the sender, which you can do for yourself via `{ receiverLink: { attach: { receiverSettleMode
+: 1 } } }`
+Where did that magic "1" come from? Well, that's the value from the spec, but you could use the constant we'
+ve defined at `require('amqp10').Constants.receiverSettleMode.settleOnDisposition`
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.Policy.Utils.fixDeprecatedOptions" id="apidoc.element.amqp10.Policy.Utils.fixDeprecatedOptions">
+        function <span class="apidocSignatureSpan">amqp10.Policy.Utils.</span>fixDeprecatedOptions
+        <span class="apidocSignatureSpan">(policy)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function fixDeprecatedOptions(policy) {
+  if (policy === undefined || policy === null) return;
+
+  if (policy.senderLink &amp;&amp;
+      policy.senderLink.attach &amp;&amp;
+      policy.senderLink.attach.hasOwnProperty('senderSettleMode')) {
+    policy.senderLink.attach.sndSettleMode =
+      policy.senderLink.attach.senderSettleMode;
+    delete policy.senderLink.attach.senderSettleMode;
+  }
+
+  if (policy.receiverLink &amp;&amp;
+      policy.receiverLink.attach &amp;&amp;
+      policy.receiverLink.attach.hasOwnProperty('receiverSettleMode')) {
+    policy.receiverLink.attach.rcvSettleMode = policy.receiverLink.attach.receiverSettleMode;
+    delete policy.receiverLink.attach.receiverSettleMode;
+  }
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+
+
+
+
+
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.amqp10.Type" id="apidoc.module.amqp10.Type">module amqp10.Type</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.Type.address" id="apidoc.element.amqp10.Type.address">
+        function <span class="apidocSignatureSpan">amqp10.Type.</span>address
+        <span class="apidocSignatureSpan">(value)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">address = function (value) { return new ForcedType(name, value); }</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.Type.array" id="apidoc.element.amqp10.Type.array">
+        function <span class="apidocSignatureSpan">amqp10.Type.</span>array
+        <span class="apidocSignatureSpan">(value)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">array = function (value) { return new ForcedType(name, value); }</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.Type.binary" id="apidoc.element.amqp10.Type.binary">
+        function <span class="apidocSignatureSpan">amqp10.Type.</span>binary
+        <span class="apidocSignatureSpan">(value)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">binary = function (value) { return new ForcedType(name, value); }</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.Type.boolean" id="apidoc.element.amqp10.Type.boolean">
+        function <span class="apidocSignatureSpan">amqp10.Type.</span>boolean
+        <span class="apidocSignatureSpan">(value)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">boolean = function (value) { return new ForcedType(name, value); }</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.Type.byte" id="apidoc.element.amqp10.Type.byte">
+        function <span class="apidocSignatureSpan">amqp10.Type.</span>byte
+        <span class="apidocSignatureSpan">(value)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">byte = function (value) { return new ForcedType(name, value); }</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.Type.char" id="apidoc.element.amqp10.Type.char">
+        function <span class="apidocSignatureSpan">amqp10.Type.</span>char
+        <span class="apidocSignatureSpan">(value)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">char = function (value) { return new ForcedType(name, value); }</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.Type.decimal128" id="apidoc.element.amqp10.Type.decimal128">
+        function <span class="apidocSignatureSpan">amqp10.Type.</span>decimal128
+        <span class="apidocSignatureSpan">(value)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">decimal128 = function (value) { return new ForcedType(name, value); }</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.Type.decimal32" id="apidoc.element.amqp10.Type.decimal32">
+        function <span class="apidocSignatureSpan">amqp10.Type.</span>decimal32
+        <span class="apidocSignatureSpan">(value)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">decimal32 = function (value) { return new ForcedType(name, value); }</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.Type.decimal64" id="apidoc.element.amqp10.Type.decimal64">
+        function <span class="apidocSignatureSpan">amqp10.Type.</span>decimal64
+        <span class="apidocSignatureSpan">(value)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">decimal64 = function (value) { return new ForcedType(name, value); }</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.Type.delivery-number" id="apidoc.element.amqp10.Type.delivery-number">
+        function <span class="apidocSignatureSpan">amqp10.Type.</span>delivery-number
+        <span class="apidocSignatureSpan">(value)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">delivery-number = function (value) { return new ForcedType(name, value); }</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.Type.delivery-tag" id="apidoc.element.amqp10.Type.delivery-tag">
+        function <span class="apidocSignatureSpan">amqp10.Type.</span>delivery-tag
+        <span class="apidocSignatureSpan">(value)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">delivery-tag = function (value) { return new ForcedType(name, value); }</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.Type.described" id="apidoc.element.amqp10.Type.described">
+        function <span class="apidocSignatureSpan">amqp10.Type.</span>described
+        <span class="apidocSignatureSpan">(descriptor, value)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">described = function (descriptor, value) { return new DescribedType(descriptor, value); }</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.Type.double" id="apidoc.element.amqp10.Type.double">
+        function <span class="apidocSignatureSpan">amqp10.Type.</span>double
+        <span class="apidocSignatureSpan">(value)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">double = function (value) { return new ForcedType(name, value); }</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.Type.error" id="apidoc.element.amqp10.Type.error">
+        function <span class="apidocSignatureSpan">amqp10.Type.</span>error
+        <span class="apidocSignatureSpan">(value)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">error = function (value) { return new ForcedType(name, value); }</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+        receiver.on('errorReceived', function(err) { // check for errors });
+        receiver.on('message', function(message) {
+          console.log('Rx message: ', message.body);
+        });
+
+        return sender.send({ key: "Value" });
+      })
+      .<span class="apidocCodeKeywordSpan">error</span>(function(err) {
+        console.log("error: ", err);
+      });
+
+By default send promises are resolved when a disposition frame is received from the remote link for the
+sent message, at this point the message is considered "settled".  To tune this behavior, you can tweak
+the policy you give to AMQPClient on construction.  For instance, to force send promises to be resolved
+immediately on successful sending of the payload, you would build AMQPClient like so:
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.Type.fields" id="apidoc.element.amqp10.Type.fields">
+        function <span class="apidocSignatureSpan">amqp10.Type.</span>fields
+        <span class="apidocSignatureSpan">(value)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">fields = function (value) { return new ForcedType(name, value); }</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.Type.float" id="apidoc.element.amqp10.Type.float">
+        function <span class="apidocSignatureSpan">amqp10.Type.</span>float
+        <span class="apidocSignatureSpan">(value)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">float = function (value) { return new ForcedType(name, value); }</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.Type.handle" id="apidoc.element.amqp10.Type.handle">
+        function <span class="apidocSignatureSpan">amqp10.Type.</span>handle
+        <span class="apidocSignatureSpan">(value)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">handle = function (value) { return new ForcedType(name, value); }</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.Type.ietf-language-tag" id="apidoc.element.amqp10.Type.ietf-language-tag">
+        function <span class="apidocSignatureSpan">amqp10.Type.</span>ietf-language-tag
+        <span class="apidocSignatureSpan">(value)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">ietf-language-tag = function (value) { return new ForcedType(name, value); }</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.Type.int" id="apidoc.element.amqp10.Type.int">
+        function <span class="apidocSignatureSpan">amqp10.Type.</span>int
+        <span class="apidocSignatureSpan">(value)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">int = function (value) { return new ForcedType(name, value); }</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.Type.list" id="apidoc.element.amqp10.Type.list">
+        function <span class="apidocSignatureSpan">amqp10.Type.</span>list
+        <span class="apidocSignatureSpan">(value)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">list = function (value) { return new ForcedType(name, value); }</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.Type.long" id="apidoc.element.amqp10.Type.long">
+        function <span class="apidocSignatureSpan">amqp10.Type.</span>long
+        <span class="apidocSignatureSpan">(value)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">long = function (value) { return new ForcedType(name, value); }</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.Type.map" id="apidoc.element.amqp10.Type.map">
+        function <span class="apidocSignatureSpan">amqp10.Type.</span>map
+        <span class="apidocSignatureSpan">(value)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">map = function (value) { return new ForcedType(name, value); }</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.Type.message-format" id="apidoc.element.amqp10.Type.message-format">
+        function <span class="apidocSignatureSpan">amqp10.Type.</span>message-format
+        <span class="apidocSignatureSpan">(value)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">message-format = function (value) { return new ForcedType(name, value); }</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.Type.milliseconds" id="apidoc.element.amqp10.Type.milliseconds">
+        function <span class="apidocSignatureSpan">amqp10.Type.</span>milliseconds
+        <span class="apidocSignatureSpan">(value)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">milliseconds = function (value) { return new ForcedType(name, value); }</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.Type.null" id="apidoc.element.amqp10.Type.null">
+        function <span class="apidocSignatureSpan">amqp10.Type.</span>null
+        <span class="apidocSignatureSpan">(value)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">null = function (value) { return new ForcedType(name, value); }</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.Type.seconds" id="apidoc.element.amqp10.Type.seconds">
+        function <span class="apidocSignatureSpan">amqp10.Type.</span>seconds
+        <span class="apidocSignatureSpan">(value)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">seconds = function (value) { return new ForcedType(name, value); }</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.Type.sequence-no" id="apidoc.element.amqp10.Type.sequence-no">
+        function <span class="apidocSignatureSpan">amqp10.Type.</span>sequence-no
+        <span class="apidocSignatureSpan">(value)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">sequence-no = function (value) { return new ForcedType(name, value); }</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.Type.short" id="apidoc.element.amqp10.Type.short">
+        function <span class="apidocSignatureSpan">amqp10.Type.</span>short
+        <span class="apidocSignatureSpan">(value)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">short = function (value) { return new ForcedType(name, value); }</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.Type.string" id="apidoc.element.amqp10.Type.string">
+        function <span class="apidocSignatureSpan">amqp10.Type.</span>string
+        <span class="apidocSignatureSpan">(value)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">string = function (value) { return new ForcedType(name, value); }</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.Type.symbol" id="apidoc.element.amqp10.Type.symbol">
+        function <span class="apidocSignatureSpan">amqp10.Type.</span>symbol
+        <span class="apidocSignatureSpan">(value)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">symbol = function (value) { return new ForcedType(name, value); }</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.Type.timestamp" id="apidoc.element.amqp10.Type.timestamp">
+        function <span class="apidocSignatureSpan">amqp10.Type.</span>timestamp
+        <span class="apidocSignatureSpan">(value)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">timestamp = function (value) { return new ForcedType(name, value); }</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.Type.transfer-number" id="apidoc.element.amqp10.Type.transfer-number">
+        function <span class="apidocSignatureSpan">amqp10.Type.</span>transfer-number
+        <span class="apidocSignatureSpan">(value)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">transfer-number = function (value) { return new ForcedType(name, value); }</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.Type.ubyte" id="apidoc.element.amqp10.Type.ubyte">
+        function <span class="apidocSignatureSpan">amqp10.Type.</span>ubyte
+        <span class="apidocSignatureSpan">(value)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">ubyte = function (value) { return new ForcedType(name, value); }</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.Type.uint" id="apidoc.element.amqp10.Type.uint">
+        function <span class="apidocSignatureSpan">amqp10.Type.</span>uint
+        <span class="apidocSignatureSpan">(value)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">uint = function (value) { return new ForcedType(name, value); }</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.Type.ulong" id="apidoc.element.amqp10.Type.ulong">
+        function <span class="apidocSignatureSpan">amqp10.Type.</span>ulong
+        <span class="apidocSignatureSpan">(value)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">ulong = function (value) { return new ForcedType(name, value); }</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.Type.ushort" id="apidoc.element.amqp10.Type.ushort">
+        function <span class="apidocSignatureSpan">amqp10.Type.</span>ushort
+        <span class="apidocSignatureSpan">(value)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">ushort = function (value) { return new ForcedType(name, value); }</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.amqp10.Type.uuid" id="apidoc.element.amqp10.Type.uuid">
+        function <span class="apidocSignatureSpan">amqp10.Type.</span>uuid
+        <span class="apidocSignatureSpan">(value)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">uuid = function (value) { return new ForcedType(name, value); }</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocFooterDiv">
+    [ this document was created with
+    <a href="https://github.com/kaizhu256/node-utility2" target="_blank">utility2</a>
+    ]
+</div>
+</div>
+</body></html>
