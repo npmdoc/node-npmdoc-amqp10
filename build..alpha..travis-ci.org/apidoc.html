@@ -1578,7 +1578,25 @@
     this._timeouts = u.generateTimeouts(this.policy.reconnect);
   }
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+
+To define a new policy, you can merge your values into an existing one by calling AMQPClient.policies.merge(yourPolicy, existingPolicy
+).
+This does a deep-merge, allowing you to only replace values you need.  For instance, if you wanted the default sender settle policy
+ to be auto-settle instead of mixed,
+you could just use
+
+&#x3c;pre&#x3e;
+var AMQP = require(&#x27;amqp10&#x27;);
+var client = new AMQP.<span class="apidocCodeKeywordSpan">Client</span>(AMQP.Policy.merge({
+  senderLink: {
+    attach: {
+      senderSettleMode: AMQP.Constants.senderSettleMode.settled
+    }
+  }
+});
+&#x3c;/pre&#x3e;
+...</pre></li>
     </ul>
 
 
@@ -2063,7 +2081,24 @@ all options in this object are passed directly to node&#x27;s [tls.connect](http
     <li>description and source-code<pre class="apidocCodePre">register = function (client) {
   throwBecauseAbstract(&#x27;register&#x27;);
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+Connection.prototype._connect = function(address, sasl) {
+this.address = address;
+var self = this;
+self.dataHandler = self._receiveHeader;
+self._transport = TransportProvider.getTransportFor(address.protocol);
+
+if (!self._transport) {
+  throw new Error(&#x27;Invalid protocol, no associated transport. Please use client.<span class="apidocCodeKeywordSpan">register
+</span>(protocol, transport) to register a new transport.&#x27;);
+}
+
+self._transport.connect(address, self._sslOptions);
+self._transport
+  .on(&#x27;connect&#x27;, function() { self.connSM.connected(sasl); })
+  .on(&#x27;data&#x27;, function(buf) { self._receiveData(buf); })
+  .on(&#x27;error&#x27;, function(err) { self.connSM.error(err); })
+...</pre></li>
     </ul>
 
 
@@ -2099,21 +2134,22 @@ all options in this object are passed directly to node&#x27;s [tls.connect](http
   throwBecauseAbstract(&#x27;connect&#x27;);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-connecting against, connect, and then send/receive as necessary.  So a simple example for a local Apache Qpid
-server would look like:
 
-var AMQPClient = require(&#x27;amqp10&#x27;).Client,
-    Promise = require(&#x27;bluebird&#x27;);
+Also, within the policy, see the encoder and decoder defined in the send/receive policies.  These define what to do with the message
+sent/received, and by default do a simple pass-through, leaving the encoding to/decoding from AMQP-specific types up to the library
+ which
+does a best-effort job.  See EventHubPolicy for a more complicated example, turning objects into UTF8-encoded buffers of JSON-strings
+.
 
-var client = new AMQPClient(); // Uses PolicyBase default policy
-client.<span class="apidocCodeKeywordSpan">connect</span>(&#x27;amqp://localhost&#x27;)
-  .then(function() {
-    return Promise.all([
-      client.createReceiver(&#x27;amq.topic&#x27;),
-      client.createSender(&#x27;amq.topic&#x27;)
-    ]);
-  })
-  .spread(function(receiver, sender) {
+&#x3c;a name=&#x22;AMQPClient+connect&#x22;&#x3e;&#x3c;/a&#x3e;
+
+### amqpClient.<span class="apidocCodeKeywordSpan">connect</span>(url, [policyOverrides])
+
+| Param | Type | Description |
+| --- | --- | --- |
+| url | &#x3c;code&#x3e;string&#x3c;/code&#x3e; | URI to connect to - right now only supports &#x3c;code&#x3e;amqp|amqps&#x3c;/code
+&#x3e; as protocol. |
+| [policyOverrides] | &#x3c;code&#x3e;object&#x3c;/code&#x3e; | Policy overrides used for creating this connection |
 ...</pre></li>
     </ul>
 
@@ -2129,7 +2165,23 @@ client.<span class="apidocCodeKeywordSpan">connect</span>(&#x27;amqp://localhost
     <li>description and source-code<pre class="apidocCodePre">destroy = function () {
   throwBecauseAbstract(&#x27;destroy&#x27;);
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+this._transport = null;
+this._sslOptions = null;
+this.sasl = null;
+this.address = null;
+if (transport) {
+  transport.end();
+  if (hasError) {
+    transport.<span class="apidocCodeKeywordSpan">destroy</span>();
+  }
+}
+
+if (this._heartbeatInterval) {
+  clearInterval(this._heartbeatInterval);
+  this._heartbeatInterval = undefined;
+}
+...</pre></li>
     </ul>
 
 
@@ -2144,7 +2196,23 @@ client.<span class="apidocCodeKeywordSpan">connect</span>(&#x27;amqp://localhost
     <li>description and source-code<pre class="apidocCodePre">end = function () {
   throwBecauseAbstract(&#x27;end&#x27;);
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+Connection.prototype._terminate = function(hasError) {
+var transport = this._transport;
+this._transport = null;
+this._sslOptions = null;
+this.sasl = null;
+this.address = null;
+if (transport) {
+  transport.<span class="apidocCodeKeywordSpan">end</span>();
+  if (hasError) {
+    transport.destroy();
+  }
+}
+
+if (this._heartbeatInterval) {
+  clearInterval(this._heartbeatInterval);
+...</pre></li>
     </ul>
 
 
@@ -2159,7 +2227,23 @@ client.<span class="apidocCodeKeywordSpan">connect</span>(&#x27;amqp://localhost
     <li>description and source-code<pre class="apidocCodePre">write = function (data, callback) {
   throwBecauseAbstract(&#x27;write&#x27;);
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+this._buffer.append(buffer);
+this._receiveAny();
+};
+
+Connection.prototype.sendHeader = function(header) {
+header = header || constants.amqpVersion;
+debug(&#x27;Sending Header &#x27; + header.toString(&#x27;hex&#x27;));
+this._transport.<span class="apidocCodeKeywordSpan">write</span>(header);
+};
+
+Connection.prototype._tryReceiveHeader = function(header) {
+header = header || constants.amqpVersion;
+if (this._buffer.length &#x3e;= header.length) {
+  var serverVersion = this._buffer.slice(0, 8);
+  this._buffer.consume(8);
+...</pre></li>
     </ul>
 
 
@@ -2192,7 +2276,25 @@ client.<span class="apidocCodeKeywordSpan">connect</span>(&#x27;amqp://localhost
     this._timeouts = u.generateTimeouts(this.policy.reconnect);
   }
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+
+To define a new policy, you can merge your values into an existing one by calling AMQPClient.policies.merge(yourPolicy, existingPolicy
+).
+This does a deep-merge, allowing you to only replace values you need.  For instance, if you wanted the default sender settle policy
+ to be auto-settle instead of mixed,
+you could just use
+
+&#x3c;pre&#x3e;
+var AMQP = require(&#x27;amqp10&#x27;);
+var client = new AMQP.<span class="apidocCodeKeywordSpan">Client</span>(AMQP.Policy.merge({
+  senderLink: {
+    attach: {
+      senderSettleMode: AMQP.Constants.senderSettleMode.settled
+    }
+  }
+});
+&#x3c;/pre&#x3e;
+...</pre></li>
     </ul>
 
 
@@ -2246,7 +2348,22 @@ client.<span class="apidocCodeKeywordSpan">connect</span>(&#x27;amqp://localhost
       //   throw err;  // rethrow
     });
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+        return reject(new errors.DisconnectedError());
+      }
+
+      if (!self._timeouts.length)
+        self._timeouts = u.generateTimeouts(self.policy.reconnect);
+
+      setTimeout(function() {
+        return self.<span class="apidocCodeKeywordSpan">_attemptReconnection</span>().then(function() { resolve(self); });
+      }, self._timeouts.shift());
+    });
+
+    self._connection.open(address, sasl);
+  });
+};
+...</pre></li>
     </ul>
 
 
@@ -2267,7 +2384,23 @@ client.<span class="apidocCodeKeywordSpan">connect</span>(&#x27;amqp://localhost
 
   if (this._session) this._session._resetLinkState();
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+AMQPClient.prototype.connect = function(url, policyOverrides) {
+  var self = this;
+  policyOverrides = policyOverrides || {};
+  var connectPolicy = u.deepMerge(policyOverrides, self.policy.connect);
+  return new Promise(function(resolve, reject) {
+if (self._connection) {
+  self._connection.close();
+  self.<span class="apidocCodeKeywordSpan">_clearConnectionState</span>();
+}
+
+debug(&#x27;connecting to: &#x27; + url);
+self._reconnect = self.connect.bind(self, url);
+var address = self.policy.parseAddress(url);
+self._defaultQueue = address.path.substr(1);
+connectPolicy.options.hostname = address.host;
+...</pre></li>
     </ul>
 
 
@@ -2289,7 +2422,23 @@ client.<span class="apidocCodeKeywordSpan">connect</span>(&#x27;amqp://localhost
 
   return connection;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+  sasl = new Sasl(Sasl.Mechanism.PLAIN);
+}
+if (!!sasl &#x26;&#x26; !!address.vhost) {
+  sasl._remoteHostname = address.vhost;
+  connectPolicy.options.hostname = address.vhost;
+}
+
+self._connection = self.<span class="apidocCodeKeywordSpan">_newConnection</span>(connectPolicy);
+self._connection.on(Connection.Connected, function(c) {
+  debug(&#x27;connected&#x27;);
+  self.emit(AMQPClient.ConnectionOpened);
+  if (self._session) {
+    debug(&#x27;session already exists, re-using&#x27;);
+    self._session.connection = self._connection;
+  } else {
+...</pre></li>
     </ul>
 
 
@@ -2315,7 +2464,23 @@ client.<span class="apidocCodeKeywordSpan">connect</span>(&#x27;amqp://localhost
 
   return session;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+    self._connection.on(Connection.Connected, function(c) {
+debug(&#x27;connected&#x27;);
+self.emit(AMQPClient.ConnectionOpened);
+if (self._session) {
+  debug(&#x27;session already exists, re-using&#x27;);
+  self._session.connection = self._connection;
+} else {
+  self._session = self.<span class="apidocCodeKeywordSpan">_newSession</span>(c);
+}
+
+self._session.once(Session.Mapped, function(s) {
+  debug(&#x27;mapped&#x27;);
+  self.emit(&#x27;connected&#x27;);
+  resolve(self);
+});
+...</pre></li>
     </ul>
 
 
@@ -2330,7 +2495,23 @@ client.<span class="apidocCodeKeywordSpan">connect</span>(&#x27;amqp://localhost
     <li>description and source-code<pre class="apidocCodePre">_preventReconnect = function () {
   this._reconnect = null;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+ * @return {Promise}
+ */
+AMQPClient.prototype.disconnect = function() {
+var self = this;
+return new Promise(function(resolve, reject) {
+  debug(&#x27;disconnecting&#x27;);
+  if (self._connection) {
+    self.<span class="apidocCodeKeywordSpan">_preventReconnect</span>();
+    var connection = self._connection;
+    self._clearConnectionState();
+    connection.once(Connection.Disconnected, function() {
+      debug(&#x27;disconnected&#x27;);
+      self.emit(&#x27;disconnected&#x27;);
+      connection = undefined;
+      resolve();
+...</pre></li>
     </ul>
 
 
@@ -2348,7 +2529,22 @@ client.<span class="apidocCodeKeywordSpan">connect</span>(&#x27;amqp://localhost
       !this._timeouts.length &#x26;&#x26; !this.policy.reconnect.forever) return false;
   return true;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+self._session.begin(self.policy.session);
+    });
+
+    self._connection.on(Connection.Disconnected, function() {
+debug(&#x27;disconnected&#x27;);
+self.emit(&#x27;disconnected&#x27;);
+self.emit(AMQPClient.ConnectionClosed);
+if (!self.<span class="apidocCodeKeywordSpan">_shouldReconnect</span>()) {
+  self._clearConnectionState(false);
+  return reject(new errors.DisconnectedError());
+}
+
+if (!self._timeouts.length)
+  self._timeouts = u.generateTimeouts(self.policy.reconnect);
+...</pre></li>
     </ul>
 
 
@@ -2444,21 +2640,22 @@ client.<span class="apidocCodeKeywordSpan">connect</span>(&#x27;amqp://localhost
   });
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-connecting against, connect, and then send/receive as necessary.  So a simple example for a local Apache Qpid
-server would look like:
 
-var AMQPClient = require(&#x27;amqp10&#x27;).Client,
-    Promise = require(&#x27;bluebird&#x27;);
+Also, within the policy, see the encoder and decoder defined in the send/receive policies.  These define what to do with the message
+sent/received, and by default do a simple pass-through, leaving the encoding to/decoding from AMQP-specific types up to the library
+ which
+does a best-effort job.  See EventHubPolicy for a more complicated example, turning objects into UTF8-encoded buffers of JSON-strings
+.
 
-var client = new AMQPClient(); // Uses PolicyBase default policy
-client.<span class="apidocCodeKeywordSpan">connect</span>(&#x27;amqp://localhost&#x27;)
-  .then(function() {
-    return Promise.all([
-      client.createReceiver(&#x27;amq.topic&#x27;),
-      client.createSender(&#x27;amq.topic&#x27;)
-    ]);
-  })
-  .spread(function(receiver, sender) {
+&#x3c;a name=&#x22;AMQPClient+connect&#x22;&#x3e;&#x3c;/a&#x3e;
+
+### amqpClient.<span class="apidocCodeKeywordSpan">connect</span>(url, [policyOverrides])
+
+| Param | Type | Description |
+| --- | --- | --- |
+| url | &#x3c;code&#x3e;string&#x3c;/code&#x3e; | URI to connect to - right now only supports &#x3c;code&#x3e;amqp|amqps&#x3c;/code
+&#x3e; as protocol. |
+| [policyOverrides] | &#x3c;code&#x3e;object&#x3c;/code&#x3e; | Policy overrides used for creating this connection |
 ...</pre></li>
     </ul>
 
@@ -2520,21 +2717,22 @@ client.<span class="apidocCodeKeywordSpan">connect</span>(&#x27;amqp://localhost
   });
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-var AMQPClient = require(&#x27;amqp10&#x27;).Client,
-    Promise = require(&#x27;bluebird&#x27;);
 
-var client = new AMQPClient(); // Uses PolicyBase default policy
-client.connect(&#x27;amqp://localhost&#x27;)
-  .then(function() {
-    return Promise.all([
-      client.<span class="apidocCodeKeywordSpan">createReceiver</span>(&#x27;amq.topic&#x27;),
-      client.createSender(&#x27;amq.topic&#x27;)
-    ]);
-  })
-  .spread(function(receiver, sender) {
-    receiver.on(&#x27;errorReceived&#x27;, function(err) { // check for errors });
-    receiver.on(&#x27;message&#x27;, function(message) {
-      console.log(&#x27;Rx message: &#x27;, message.body);
+Connects to a given AMQP server endpoint. Sets the default queue, so e.g.
+amqp://my-activemq-host/my-queue-name would set the default queue to
+my-queue-name for future send/receive calls.
+
+&#x3c;a name=&#x22;AMQPClient+createReceiver&#x22;&#x3e;&#x3c;/a&#x3e;
+
+### amqpClient.<span class="apidocCodeKeywordSpan">createReceiver</span>(address, [policyOverrides])
+
+| Param | Type | Description |
+| --- | --- | --- |
+| address | &#x3c;code&#x3e;string&#x3c;/code&#x3e; | An address to connect this link to.  If not provided will use default queue
+ from connection uri. |
+| [policyOverrides] | &#x3c;code&#x3e;object&#x3c;/code&#x3e; | Policy overrides used for creating this receiver link |
+| [policyOverrides.name] | &#x3c;code&#x3e;string&#x3c;/code&#x3e; | Explicitly set a name for this link, this is an alias to [policyOverrides
+.attach.name] |
 ...</pre></li>
     </ul>
 
@@ -2557,7 +2755,21 @@ client.connect(&#x27;amqp://localhost&#x27;)
   return this.createReceiver(address, policyOverrides)
     .then(function(link) { return new ReceiverStream(link); });
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+
+Creates a receiver link for the given address, with optional link policy. The
+promise returned resolves to a link that is an EventEmitter, which can be
+used to listen for &#x27;message&#x27; events.
+
+&#x3c;a name=&#x22;AMQPClient+createReceiverStream&#x22;&#x3e;&#x3c;/a&#x3e;
+
+### amqpClient.<span class="apidocCodeKeywordSpan">createReceiverStream</span>(address, [policyOverrides])
+
+| Param | Type | Description |
+| --- | --- | --- |
+| address | &#x3c;code&#x3e;string&#x3c;/code&#x3e; | Address used for link creation |
+| [policyOverrides] | &#x3c;code&#x3e;object&#x3c;/code&#x3e; | Policy overrides used for creating the receiver link |
+...</pre></li>
     </ul>
 
 
@@ -2610,21 +2822,22 @@ client.connect(&#x27;amqp://localhost&#x27;)
   });
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-    Promise = require(&#x27;bluebird&#x27;);
+| [policyOverrides] | &#x3c;code&#x3e;object&#x3c;/code&#x3e; | Policy overrides used for creating the receiver link |
 
-var client = new AMQPClient(); // Uses PolicyBase default policy
-client.connect(&#x27;amqp://localhost&#x27;)
-  .then(function() {
-    return Promise.all([
-      client.createReceiver(&#x27;amq.topic&#x27;),
-      client.<span class="apidocCodeKeywordSpan">createSender</span>(&#x27;amq.topic&#x27;)
-    ]);
-  })
-  .spread(function(receiver, sender) {
-    receiver.on(&#x27;errorReceived&#x27;, function(err) { // check for errors });
-    receiver.on(&#x27;message&#x27;, function(message) {
-      console.log(&#x27;Rx message: &#x27;, message.body);
-    });
+
+Creates a receiver link wrapped as a Readable stream
+
+&#x3c;a name=&#x22;AMQPClient+createSender&#x22;&#x3e;&#x3c;/a&#x3e;
+
+### amqpClient.<span class="apidocCodeKeywordSpan">createSender</span>(address, [policyOverrides])
+
+| Param | Type | Description |
+| --- | --- | --- |
+| address | &#x3c;code&#x3e;string&#x3c;/code&#x3e; | An address to connect this link to. If not provided will use default queue
+ from connection uri. |
+| [policyOverrides] | &#x3c;code&#x3e;object&#x3c;/code&#x3e; | Policy overrides used for creating this sender link |
+| [policyOverrides.name] | &#x3c;code&#x3e;string&#x3c;/code&#x3e; | Explicitly set a name for this link, this is an alias to [policyOverrides
+.attach.name] |
 ...</pre></li>
     </ul>
 
@@ -2641,7 +2854,22 @@ client.connect(&#x27;amqp://localhost&#x27;)
   return this.createSender(address, policyOverrides)
     .then(function(link) { return new SenderStream(link, policyOverrides); });
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+| [policyOverrides.name] | &#x3c;code&#x3e;string&#x3c;/code&#x3e; | Explicitly set a name for this link, this is an alias to [policyOverrides
+.attach.name] |
+
+
+Creates a sender link for the given address, with optional link policy
+
+&#x3c;a name=&#x22;AMQPClient+createSenderStream&#x22;&#x3e;&#x3c;/a&#x3e;
+
+### amqpClient.<span class="apidocCodeKeywordSpan">createSenderStream</span>(address, [policyOverrides])
+
+| Param | Type | Description |
+| --- | --- | --- |
+| address | &#x3c;code&#x3e;string&#x3c;/code&#x3e; | Address used for link creation |
+| [policyOverrides] | &#x3c;code&#x3e;object&#x3c;/code&#x3e; | Policy overrides used for creating this sender link |
+...</pre></li>
     </ul>
 
 
@@ -2674,7 +2902,23 @@ client.connect(&#x27;amqp://localhost&#x27;)
     }
   });
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+| [policyOverrides] | &#x3c;code&#x3e;object&#x3c;/code&#x3e; | Policy overrides used for creating this sender link |
+
+
+Creates a sender link wrapped as a Writable stream
+
+&#x3c;a name=&#x22;AMQPClient+disconnect&#x22;&#x3e;&#x3c;/a&#x3e;
+
+### amqpClient.<span class="apidocCodeKeywordSpan">disconnect</span>()
+
+Disconnect tears down any existing connection with appropriate Close
+performatives and TCP socket teardowns.
+
+&#x3c;a name=&#x22;AMQPClient+client_errorReceived&#x22;&#x3e;&#x3c;/a&#x3e;
+
+### Event: &#x27;client:errorReceived&#x27;
+...</pre></li>
     </ul>
 
 
@@ -2719,7 +2963,23 @@ client.connect(&#x27;amqp://localhost&#x27;)
     <li>description and source-code<pre class="apidocCodePre">getValue = function () {
   return this.value;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+  // NOTE: Described type constructors are either ulongs or a symbol. Here
+  //       we are checking if the passed in value is a number and forcing a
+  //       ulong encoding. For everything else we attempt to encode as a symbol.
+  var descriptor = (value.descriptor instanceof ForcedType) ? value.descriptor.value : value.descriptor;
+  var descriptorEncoder =
+    (typeof descriptor === &#x27;number&#x27;) ? types.ulong : types.symbol;
+  descriptorEncoder.encode(descriptor, buffer);
+  var describedValue = value.<span class="apidocCodeKeywordSpan">getValue</span>();
+  describedValue = (!!describedValue || u.isNumber(describedValue)) ? describedValue : [];
+  this.encode(describedValue, buffer);
+  return;
+}
+
+// support for composite types
+if (value.toDescribedType &#x26;&#x26; typeof value.toDescribedType === &#x27;function&#x27;) {
+...</pre></li>
     </ul>
 
 
@@ -2740,7 +3000,23 @@ client.connect(&#x27;amqp://localhost&#x27;)
   errors.BaseError.call(this, msg);
   this.name = &#x27;AmqpAuthenticationError&#x27;;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+  }
+  if (saslMechanism === Sasl.Mechanism.NONE) {
+    if (address.user) {
+      console.warn(
+          &#x27;Sasl disabled by policy, but credentials provided in endpoint URI&#x27;);
+    }
+  } else if (saslMechanism === Sasl.Mechanism.PLAIN &#x26;&#x26; !address.user) {
+    throw new errors.<span class="apidocCodeKeywordSpan">AuthenticationError</span>(
+        &#x27;Sasl PLAIN requested, but no credentials provided in endpoint URI&#x27;);
+  } else {
+    sasl = new Sasl(saslMechanism);
+  }
+} else if (address.user) {
+  // force SASL plain if no mechanism specified, but creds in URI
+  connectPolicy.saslMechanism = Sasl.Mechanism.PLAIN;
+...</pre></li>
     </ul>
 
 
@@ -2760,7 +3036,23 @@ client.connect(&#x27;amqp://localhost&#x27;)
   if (Error.captureStackTrace)
     Error.captureStackTrace(this, this.constructor);
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+if (!details.settled) {
+  return;
+}
+
+var err = null;
+if (details.state instanceof DeliveryState.Rejected) {
+  err = !!details.state.error ?
+    details.state.error : new errors.<span class="apidocCodeKeywordSpan">BaseError</span>(&#x27;Message was rejected&#x27;);
+}
+
+var first = details.first;
+var last = details.last || first;
+for (var messageId = first; messageId &#x3c;= last; ++messageId) {
+  if (!this._unsettledSends[messageId]) {
+    continue;
+...</pre></li>
     </ul>
 
 
@@ -2792,7 +3084,23 @@ client.connect(&#x27;amqp://localhost&#x27;)
   errors.ConnectionError.call(this, msg);
   this.name = &#x27;AmqpDisconnectedError&#x27;;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+
+    self._connection.on(Connection.Disconnected, function() {
+debug(&#x27;disconnected&#x27;);
+self.emit(&#x27;disconnected&#x27;);
+self.emit(AMQPClient.ConnectionClosed);
+if (!self._shouldReconnect()) {
+  self._clearConnectionState(false);
+  return reject(new errors.<span class="apidocCodeKeywordSpan">DisconnectedError</span>());
+}
+
+if (!self._timeouts.length)
+  self._timeouts = u.generateTimeouts(self.policy.reconnect);
+
+setTimeout(function() {
+  return self._attemptReconnection().then(function() { resolve(self); });
+...</pre></li>
     </ul>
 
 
@@ -2810,7 +3118,24 @@ client.connect(&#x27;amqp://localhost&#x27;)
   this.name = &#x27;AmqpEncodingError&#x27;;
   this.value = value;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+  return types.null.encode(value, buffer);
+}
+
+if (!!forceType) {
+  // @todo: this will unfortunately cause a deoptimization of the method
+  //        until at least node 4.2.1, because v8 will assume that lookups
+  //        by keyed value are done with a Number rather than a String
+  if (!types.hasOwnProperty(forceType)) throw new errors.<span class="apidocCodeKeywordSpan">EncodingError</span>(forceType, &#x27
+;unknown type &#x27; + forceType);
+  var encoder = types[forceType];
+  if (!encoder.encode) {
+    throw new errors.NotImplementedError(&#x27;encode(&#x27; + forceType + &#x27;)&#x27;);
+  }
+
+  return encoder.encode(value, buffer, this);
+}
+...</pre></li>
     </ul>
 
 
@@ -2826,7 +3151,27 @@ client.connect(&#x27;amqp://localhost&#x27;)
   errors.BaseError.call(this, msg);
   this.name = &#x27;AmqpInvalidStateError&#x27;;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+    debug(&#x27;Refreshing link &#x27; + link.name + &#x27; credit by &#x27; + link.policy.creditQuantum + &#x27;: &#x27; + link
+.linkCredit + &#x27; remaining.&#x27;);
+    link.addCredits(link.policy.creditQuantum);
+  }
+},
+RefreshSettled: function (threshold) {
+  return function (link, options) {
+    if (link.policy.rcvSettleMode === constants.receiverSettleMode.autoSettle) {
+      throw new errors.<span class="apidocCodeKeywordSpan">InvalidStateError</span>(&#x27;Cannot specify RefreshSettled as link
+refresh policy when auto-settling messages.&#x27;);
+    }
+    var creditQuantum = (!!options &#x26;&#x26; options.initial) ? link.policy.creditQuantum : link.settledMessagesSinceLastCredit
+;
+    if (creditQuantum &#x3e; 0 &#x26;&#x26; link.linkCredit &#x3c; threshold) {
+      debug(&#x27;Refreshing link &#x27; + link.name + &#x27; credit by &#x27; + creditQuantum + &#x27;: &#x27; + link.linkCredit
+ + &#x27; remaining.&#x27;);
+      link.addCredits(creditQuantum);
+    }
+  };
+...</pre></li>
     </ul>
 
 
@@ -2842,7 +3187,23 @@ client.connect(&#x27;amqp://localhost&#x27;)
   errors.BaseError.call(this, &#x27;Invalid subject: &#x27; + subject);
   this.name = &#x27;AmqpInvalidSubjectError&#x27;;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+        source: { address: &#x27;localhost&#x27; },
+        target: { address: address.name }
+      }
+    }, this.policy.senderLink);
+
+if (!!address.subject &#x26;&#x26; this.policy.defaultSubjects) {
+  if (address.subject === &#x27;undefined&#x27; || address.subject === &#x27;null&#x27;) {
+    throw new errors.<span class="apidocCodeKeywordSpan">InvalidSubjectError</span>(address.subject);
+  }
+
+  linkPolicy.defaultSubject = address.subject;
+}
+
+var self = this;
+return new Promise(function(resolve, reject) {
+...</pre></li>
     </ul>
 
 
@@ -2858,7 +3219,22 @@ client.connect(&#x27;amqp://localhost&#x27;)
   errors.BaseError.call(this, &#x27;malformed header: &#x27; + header);
   this.name = &#x27;AmqpMalformedHeaderError&#x27;;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+frames.readFrame = function(buffer, options) {
+options = options || { verbose: true };
+if (buffer.length &#x3c; 8) return undefined;
+
+var sizeAndDoff = buffer.slice(0, 8);
+var size = sizeAndDoff.readUInt32BE(0);
+var doff = sizeAndDoff.readUInt8(4);
+if (doff !== 2) throw new errors.<span class="apidocCodeKeywordSpan">MalformedHeaderError</span>(&#x27;Invalid DOFF&#x27;);
+if (size &#x3e; buffer.length) return undefined;
+
+var frameType = sizeAndDoff[5];
+if (frameType !== FrameType.AMQP &#x26;&#x26; frameType !== FrameType.SASL) {
+  throw new errors.NotImplementedError(&#x27;Unsupported frame type: &#x27; + frameType);
+}
+...</pre></li>
     </ul>
 
 
@@ -2874,7 +3250,24 @@ client.connect(&#x27;amqp://localhost&#x27;)
   errors.BaseError.call(this, &#x27;malformed payload: &#x27; + payload);
   this.name = &#x27;AmqpMalformedPayloadError&#x27;;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+  case 0xF0:
+    if (remaining &#x3c; 5) return false;
+    codeAndLength = this._peek(buf, offset, codeBytes + 4);
+    numBytes = codeAndLength.readUInt32BE(codeBytes) + 4 + codeBytes; // code + size + #octets
+    //debug(&#x27;Reading variable with prefix 0x&#x27;+codePrefix.toString(16)+&#x27; of length &#x27;+numBytes);
+    return this._readOrPeekFixed(buf, offset, remaining, doNotConsume, numBytes);
+  default:
+    throw new errors.<span class="apidocCodeKeywordSpan">MalformedPayloadError</span>(&#x27;Unknown code prefix: 0x&#x27; + codePrefix
+.toString(16));
+}
+};
+
+Codec.prototype._asMostSpecific = function(buf, forcedCode) {
+if (buf instanceof Array) {
+  // Described type
+  var descriptor = this._asMostSpecific(buf[0]);
+...</pre></li>
     </ul>
 
 
@@ -2906,7 +3299,23 @@ client.connect(&#x27;amqp://localhost&#x27;)
   errors.BaseError.call(this, feature + &#x27; not yet implemented&#x27;);
   this.name = &#x27;AmqpNotImplementedError&#x27;;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+var address = self.policy.parseAddress(url);
+self._defaultQueue = address.path.substr(1);
+connectPolicy.options.hostname = address.host;
+var saslMechanism = connectPolicy.saslMechanism;
+var sasl = null;
+if (saslMechanism) {
+  if (!u.includes(Sasl.Mechanism, saslMechanism)) {
+    throw new errors.<span class="apidocCodeKeywordSpan">NotImplementedError</span>(
+      saslMechanism + &#x27; is not a supported saslMechanism policy&#x27;);
+  }
+  if (saslMechanism === Sasl.Mechanism.NONE) {
+    if (address.user) {
+      console.warn(
+          &#x27;Sasl disabled by policy, but credentials provided in endpoint URI&#x27;);
+    }
+...</pre></li>
     </ul>
 
 
@@ -2922,7 +3331,24 @@ client.connect(&#x27;amqp://localhost&#x27;)
   errors.BaseError.call(this, msg);
   this.name = &#x27;AmqpOverCapacityError&#x27;;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+  this._sessions[channel] = undefined;
+};
+
+Connection.prototype._nextChannel = function() {
+  for (var cid = 1; cid &#x3c;= this.remote.open.channelMax; ++cid) {
+    if (this._sessions[cid] === undefined) return cid;
+  }
+  throw new errors.<span class="apidocCodeKeywordSpan">OverCapacityError</span>(&#x27;Out of available &#x27; + this.remote.open
+.channelMax + &#x27; channels&#x27;);
+};
+
+Connection.prototype._processError = function(err) {
+  debug(&#x27;Error from socket: &#x27; + err);
+  this.emit(Connection.ErrorReceived, errors.wrapProtocolError(err));
+  this._terminate(err);
+};
+...</pre></li>
     </ul>
 
 
@@ -2942,7 +3368,23 @@ client.connect(&#x27;amqp://localhost&#x27;)
   this.description = description;
   this.errorInfo = errorInfo;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+var util = require(&#x27;util&#x27;),
+   AMQPError = require(&#x27;./types/amqp_error&#x27;);
+
+var errors = module.exports = {};
+
+errors.wrapProtocolError = function(err) {
+ if (err instanceof AMQPError) {
+   return new errors.<span class="apidocCodeKeywordSpan">ProtocolError</span>(err.condition, err.description, err.info);
+ }
+
+ return err;
+};
+
+/**
+* The base error all amqp10 Errors inherit from.
+...</pre></li>
     </ul>
 
 
@@ -2958,7 +3400,23 @@ client.connect(&#x27;amqp://localhost&#x27;)
   errors.BaseError.call(this, msg);
   this.name = &#x27;AmqpTransportError&#x27;;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+&#x27;use strict&#x27;;
+
+var util = require(&#x27;util&#x27;);
+var EventEmitter = require(&#x27;events&#x27;).EventEmitter;
+var errors = require(&#x27;../errors&#x27;);
+
+var throwBecauseAbstract = function(methodName) {
+throw new errors.<span class="apidocCodeKeywordSpan">TransportError</span>(&#x27;Cannot use AbstractTransport. Subclass must implement
+ &#x27; + methodName);
+};
+
+var AbstractTransport = function () {
+if (this.constructor === AbstractTransport) {
+  throwBecauseAbstract(&#x27;constructor&#x27;);
+}
+...</pre></li>
     </ul>
 
 
@@ -2974,7 +3432,24 @@ client.connect(&#x27;amqp://localhost&#x27;)
   errors.BaseError.call(this, msg);
   this.name = &#x27;AmqpVersionError&#x27;;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+      this.connSM.validVersion();
+      this.connSM.sendOpen();
+    } else {
+      var msg = &#x27;Invalid AMQP version received: &#x27;;
+      if (u.bufferEquals(serverVersion, constants.saslVersion)) {
+        msg = &#x27;Credentials Expected - SASL version received: &#x27;;
+      }
+      this.emit(Connection.ErrorReceived, new errors.<span class="apidocCodeKeywordSpan">VersionError</span>(msg + serverVersion
+.toString(&#x27;hex&#x27;)));
+      this.connSM.invalidVersion();
+    }
+    this._receivedHeader = true;
+  }
+
+  return true;
+}
+...</pre></li>
     </ul>
 
 
@@ -2993,7 +3468,23 @@ client.connect(&#x27;amqp://localhost&#x27;)
 
   return err;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+  if (this._sessions[cid] === undefined) return cid;
+}
+throw new errors.OverCapacityError(&#x27;Out of available &#x27; + this.remote.open.channelMax + &#x27; channels&#x27;);
+};
+
+Connection.prototype._processError = function(err) {
+debug(&#x27;Error from socket: &#x27; + err);
+this.emit(Connection.ErrorReceived, errors.<span class="apidocCodeKeywordSpan">wrapProtocolError</span>(err));
+this._terminate(err);
+};
+
+Connection.prototype._receiveData = function(buffer) {
+debugTRACE(&#x27;Rx: &#x27; + buffer.toString(&#x27;hex&#x27;));
+this._buffer.append(buffer);
+this._receiveAny();
+...</pre></li>
     </ul>
 
 
@@ -3014,7 +3505,23 @@ client.connect(&#x27;amqp://localhost&#x27;)
   errors.BaseError.call(this, msg);
   this.name = &#x27;AmqpAuthenticationError&#x27;;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+  }
+  if (saslMechanism === Sasl.Mechanism.NONE) {
+    if (address.user) {
+      console.warn(
+          &#x27;Sasl disabled by policy, but credentials provided in endpoint URI&#x27;);
+    }
+  } else if (saslMechanism === Sasl.Mechanism.PLAIN &#x26;&#x26; !address.user) {
+    throw new errors.<span class="apidocCodeKeywordSpan">AuthenticationError</span>(
+        &#x27;Sasl PLAIN requested, but no credentials provided in endpoint URI&#x27;);
+  } else {
+    sasl = new Sasl(saslMechanism);
+  }
+} else if (address.user) {
+  // force SASL plain if no mechanism specified, but creds in URI
+  connectPolicy.saslMechanism = Sasl.Mechanism.PLAIN;
+...</pre></li>
     </ul>
 
 
@@ -3059,7 +3566,23 @@ client.connect(&#x27;amqp://localhost&#x27;)
   if (Error.captureStackTrace)
     Error.captureStackTrace(this, this.constructor);
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+if (!details.settled) {
+  return;
+}
+
+var err = null;
+if (details.state instanceof DeliveryState.Rejected) {
+  err = !!details.state.error ?
+    details.state.error : new errors.<span class="apidocCodeKeywordSpan">BaseError</span>(&#x27;Message was rejected&#x27;);
+}
+
+var first = details.first;
+var last = details.last || first;
+for (var messageId = first; messageId &#x3c;= last; ++messageId) {
+  if (!this._unsettledSends[messageId]) {
+    continue;
+...</pre></li>
     </ul>
 
 
@@ -3134,7 +3657,23 @@ client.connect(&#x27;amqp://localhost&#x27;)
   errors.ConnectionError.call(this, msg);
   this.name = &#x27;AmqpDisconnectedError&#x27;;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+
+    self._connection.on(Connection.Disconnected, function() {
+debug(&#x27;disconnected&#x27;);
+self.emit(&#x27;disconnected&#x27;);
+self.emit(AMQPClient.ConnectionClosed);
+if (!self._shouldReconnect()) {
+  self._clearConnectionState(false);
+  return reject(new errors.<span class="apidocCodeKeywordSpan">DisconnectedError</span>());
+}
+
+if (!self._timeouts.length)
+  self._timeouts = u.generateTimeouts(self.policy.reconnect);
+
+setTimeout(function() {
+  return self._attemptReconnection().then(function() { resolve(self); });
+...</pre></li>
     </ul>
 
 
@@ -3173,7 +3712,24 @@ client.connect(&#x27;amqp://localhost&#x27;)
   this.name = &#x27;AmqpEncodingError&#x27;;
   this.value = value;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+  return types.null.encode(value, buffer);
+}
+
+if (!!forceType) {
+  // @todo: this will unfortunately cause a deoptimization of the method
+  //        until at least node 4.2.1, because v8 will assume that lookups
+  //        by keyed value are done with a Number rather than a String
+  if (!types.hasOwnProperty(forceType)) throw new errors.<span class="apidocCodeKeywordSpan">EncodingError</span>(forceType, &#x27
+;unknown type &#x27; + forceType);
+  var encoder = types[forceType];
+  if (!encoder.encode) {
+    throw new errors.NotImplementedError(&#x27;encode(&#x27; + forceType + &#x27;)&#x27;);
+  }
+
+  return encoder.encode(value, buffer, this);
+}
+...</pre></li>
     </ul>
 
 
@@ -3214,7 +3770,27 @@ client.connect(&#x27;amqp://localhost&#x27;)
   errors.BaseError.call(this, msg);
   this.name = &#x27;AmqpInvalidStateError&#x27;;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+    debug(&#x27;Refreshing link &#x27; + link.name + &#x27; credit by &#x27; + link.policy.creditQuantum + &#x27;: &#x27; + link
+.linkCredit + &#x27; remaining.&#x27;);
+    link.addCredits(link.policy.creditQuantum);
+  }
+},
+RefreshSettled: function (threshold) {
+  return function (link, options) {
+    if (link.policy.rcvSettleMode === constants.receiverSettleMode.autoSettle) {
+      throw new errors.<span class="apidocCodeKeywordSpan">InvalidStateError</span>(&#x27;Cannot specify RefreshSettled as link
+refresh policy when auto-settling messages.&#x27;);
+    }
+    var creditQuantum = (!!options &#x26;&#x26; options.initial) ? link.policy.creditQuantum : link.settledMessagesSinceLastCredit
+;
+    if (creditQuantum &#x3e; 0 &#x26;&#x26; link.linkCredit &#x3c; threshold) {
+      debug(&#x27;Refreshing link &#x27; + link.name + &#x27; credit by &#x27; + creditQuantum + &#x27;: &#x27; + link.linkCredit
+ + &#x27; remaining.&#x27;);
+      link.addCredits(creditQuantum);
+    }
+  };
+...</pre></li>
     </ul>
 
 
@@ -3255,7 +3831,23 @@ client.connect(&#x27;amqp://localhost&#x27;)
   errors.BaseError.call(this, &#x27;Invalid subject: &#x27; + subject);
   this.name = &#x27;AmqpInvalidSubjectError&#x27;;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+        source: { address: &#x27;localhost&#x27; },
+        target: { address: address.name }
+      }
+    }, this.policy.senderLink);
+
+if (!!address.subject &#x26;&#x26; this.policy.defaultSubjects) {
+  if (address.subject === &#x27;undefined&#x27; || address.subject === &#x27;null&#x27;) {
+    throw new errors.<span class="apidocCodeKeywordSpan">InvalidSubjectError</span>(address.subject);
+  }
+
+  linkPolicy.defaultSubject = address.subject;
+}
+
+var self = this;
+return new Promise(function(resolve, reject) {
+...</pre></li>
     </ul>
 
 
@@ -3296,7 +3888,22 @@ client.connect(&#x27;amqp://localhost&#x27;)
   errors.BaseError.call(this, &#x27;malformed header: &#x27; + header);
   this.name = &#x27;AmqpMalformedHeaderError&#x27;;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+frames.readFrame = function(buffer, options) {
+options = options || { verbose: true };
+if (buffer.length &#x3c; 8) return undefined;
+
+var sizeAndDoff = buffer.slice(0, 8);
+var size = sizeAndDoff.readUInt32BE(0);
+var doff = sizeAndDoff.readUInt8(4);
+if (doff !== 2) throw new errors.<span class="apidocCodeKeywordSpan">MalformedHeaderError</span>(&#x27;Invalid DOFF&#x27;);
+if (size &#x3e; buffer.length) return undefined;
+
+var frameType = sizeAndDoff[5];
+if (frameType !== FrameType.AMQP &#x26;&#x26; frameType !== FrameType.SASL) {
+  throw new errors.NotImplementedError(&#x27;Unsupported frame type: &#x27; + frameType);
+}
+...</pre></li>
     </ul>
 
 
@@ -3337,7 +3944,24 @@ client.connect(&#x27;amqp://localhost&#x27;)
   errors.BaseError.call(this, &#x27;malformed payload: &#x27; + payload);
   this.name = &#x27;AmqpMalformedPayloadError&#x27;;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+  case 0xF0:
+    if (remaining &#x3c; 5) return false;
+    codeAndLength = this._peek(buf, offset, codeBytes + 4);
+    numBytes = codeAndLength.readUInt32BE(codeBytes) + 4 + codeBytes; // code + size + #octets
+    //debug(&#x27;Reading variable with prefix 0x&#x27;+codePrefix.toString(16)+&#x27; of length &#x27;+numBytes);
+    return this._readOrPeekFixed(buf, offset, remaining, doNotConsume, numBytes);
+  default:
+    throw new errors.<span class="apidocCodeKeywordSpan">MalformedPayloadError</span>(&#x27;Unknown code prefix: 0x&#x27; + codePrefix
+.toString(16));
+}
+};
+
+Codec.prototype._asMostSpecific = function(buf, forcedCode) {
+if (buf instanceof Array) {
+  // Described type
+  var descriptor = this._asMostSpecific(buf[0]);
+...</pre></li>
     </ul>
 
 
@@ -3419,7 +4043,23 @@ client.connect(&#x27;amqp://localhost&#x27;)
   errors.BaseError.call(this, feature + &#x27; not yet implemented&#x27;);
   this.name = &#x27;AmqpNotImplementedError&#x27;;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+var address = self.policy.parseAddress(url);
+self._defaultQueue = address.path.substr(1);
+connectPolicy.options.hostname = address.host;
+var saslMechanism = connectPolicy.saslMechanism;
+var sasl = null;
+if (saslMechanism) {
+  if (!u.includes(Sasl.Mechanism, saslMechanism)) {
+    throw new errors.<span class="apidocCodeKeywordSpan">NotImplementedError</span>(
+      saslMechanism + &#x27; is not a supported saslMechanism policy&#x27;);
+  }
+  if (saslMechanism === Sasl.Mechanism.NONE) {
+    if (address.user) {
+      console.warn(
+          &#x27;Sasl disabled by policy, but credentials provided in endpoint URI&#x27;);
+    }
+...</pre></li>
     </ul>
 
 
@@ -3460,7 +4100,24 @@ client.connect(&#x27;amqp://localhost&#x27;)
   errors.BaseError.call(this, msg);
   this.name = &#x27;AmqpOverCapacityError&#x27;;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+  this._sessions[channel] = undefined;
+};
+
+Connection.prototype._nextChannel = function() {
+  for (var cid = 1; cid &#x3c;= this.remote.open.channelMax; ++cid) {
+    if (this._sessions[cid] === undefined) return cid;
+  }
+  throw new errors.<span class="apidocCodeKeywordSpan">OverCapacityError</span>(&#x27;Out of available &#x27; + this.remote.open
+.channelMax + &#x27; channels&#x27;);
+};
+
+Connection.prototype._processError = function(err) {
+  debug(&#x27;Error from socket: &#x27; + err);
+  this.emit(Connection.ErrorReceived, errors.wrapProtocolError(err));
+  this._terminate(err);
+};
+...</pre></li>
     </ul>
 
 
@@ -3505,7 +4162,23 @@ client.connect(&#x27;amqp://localhost&#x27;)
   this.description = description;
   this.errorInfo = errorInfo;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+var util = require(&#x27;util&#x27;),
+   AMQPError = require(&#x27;./types/amqp_error&#x27;);
+
+var errors = module.exports = {};
+
+errors.wrapProtocolError = function(err) {
+ if (err instanceof AMQPError) {
+   return new errors.<span class="apidocCodeKeywordSpan">ProtocolError</span>(err.condition, err.description, err.info);
+ }
+
+ return err;
+};
+
+/**
+* The base error all amqp10 Errors inherit from.
+...</pre></li>
     </ul>
 
 
@@ -3546,7 +4219,23 @@ client.connect(&#x27;amqp://localhost&#x27;)
   errors.BaseError.call(this, msg);
   this.name = &#x27;AmqpTransportError&#x27;;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+&#x27;use strict&#x27;;
+
+var util = require(&#x27;util&#x27;);
+var EventEmitter = require(&#x27;events&#x27;).EventEmitter;
+var errors = require(&#x27;../errors&#x27;);
+
+var throwBecauseAbstract = function(methodName) {
+throw new errors.<span class="apidocCodeKeywordSpan">TransportError</span>(&#x27;Cannot use AbstractTransport. Subclass must implement
+ &#x27; + methodName);
+};
+
+var AbstractTransport = function () {
+if (this.constructor === AbstractTransport) {
+  throwBecauseAbstract(&#x27;constructor&#x27;);
+}
+...</pre></li>
     </ul>
 
 
@@ -3587,7 +4276,24 @@ client.connect(&#x27;amqp://localhost&#x27;)
   errors.BaseError.call(this, msg);
   this.name = &#x27;AmqpVersionError&#x27;;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+      this.connSM.validVersion();
+      this.connSM.sendOpen();
+    } else {
+      var msg = &#x27;Invalid AMQP version received: &#x27;;
+      if (u.bufferEquals(serverVersion, constants.saslVersion)) {
+        msg = &#x27;Credentials Expected - SASL version received: &#x27;;
+      }
+      this.emit(Connection.ErrorReceived, new errors.<span class="apidocCodeKeywordSpan">VersionError</span>(msg + serverVersion
+.toString(&#x27;hex&#x27;)));
+      this.connSM.invalidVersion();
+    }
+    this._receivedHeader = true;
+  }
+
+  return true;
+}
+...</pre></li>
     </ul>
 
 
@@ -3724,22 +4430,24 @@ all options in this object are passed directly to node&#x27;s [tls.connect](http
     <ul>
     <li>description and source-code<pre class="apidocCodePre">merge = function (overrides, base) { return pu.Merge(overrides, base || new Policy()); }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-By default send promises are resolved when a disposition frame is received from the remote link for the
-sent message, at this point the message is considered &#x22;settled&#x22;.  To tune this behavior, you can tweak
-the policy you give to AMQPClient on construction.  For instance, to force send promises to be resolved
-immediately on successful sending of the payload, you would build AMQPClient like so:
+The code does its best to avoid exposing AMQP-specific types and attempts to convert them where possible, but on the off-chance
+you
+need to speak AMQP-specific (e.g. to set a filter to a described-type), you can use node-amqp-encoder and the
+translator adapter to convert it to our internal types.  See simple_eventhub_test.js for an example.
 
-    var AMQPClient = require(&#x27;amqp10&#x27;).Client,
-        Policy = require(&#x27;amqp10&#x27;).Policy;
-    var client = new AMQPClient(Policy.<span class="apidocCodeKeywordSpan">merge</span>({
-      senderLinkPolicy: {
-        callbackPolicy: Policy.Utils.SenderCallbackPolicies.OnSent
-      }
-    }, Policy.DefaultPolicy));
+Configuring AMQPClient is done through a Policy class.  By default, DefaultPolicy will be used - it assumes AMQP defaults wherever
+possible, and for values with no spec-defined defaults it tries to assume something reasonable (e.g. timeout, max message size).
 
-In addition to the above, you can also tune how message link credit is doled out (for throttling), as
-well as most other AMQP behaviors, all through policy overrides.  See [DefaultPolicy](https://github.com/noodlefrenzy/node-amqp10
-/blob/master/lib/policies/default_policy.js)
+To define a new policy, you can merge your values into an existing one by calling AMQPClient.policies.<span class="apidocCodeKeywordSpan
+">merge</span>(yourPolicy, existingPolicy).
+This does a deep-merge, allowing you to only replace values you need.  For instance, if you wanted the default sender settle policy
+ to be auto-settle instead of mixed,
+you could just use
+
+&#x3c;pre&#x3e;
+var AMQP = require(&#x27;amqp10&#x27;);
+var client = new AMQP.Client(AMQP.Policy.merge({
+  senderLink: {
 ...</pre></li>
     </ul>
 
@@ -3906,7 +4614,23 @@ all options in this object are passed directly to node&#x27;s [tls.connect](http
   result.rootUri += result.host + &#x27;:&#x27; + result.port;
   return result;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+| overrides | &#x3c;code&#x3e;object&#x3c;/code&#x3e; | override values for the default policy |
+
+
+The default policy for amqp10 clients
+
+&#x3c;a name=&#x22;Policy+parseAddress&#x22;&#x3e;&#x3c;/a&#x3e;
+
+### policy.<span class="apidocCodeKeywordSpan">parseAddress</span>(address)
+
+| Param | Type | Description |
+| --- | --- | --- |
+| address | &#x3c;code&#x3e;string&#x3c;/code&#x3e; | the address to parse |
+
+
+Parses an address for use when connecting to an AMQP 1.0 broker
+...</pre></li>
     </ul>
 
 
@@ -3929,7 +4653,23 @@ all options in this object are passed directly to node&#x27;s [tls.connect](http
   if (parts.length) result.subject = parts.shift();
   return result;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+| address | &#x3c;code&#x3e;string&#x3c;/code&#x3e; | the address to parse |
+
+
+Parses an address for use when connecting to an AMQP 1.0 broker
+
+&#x3c;a name=&#x22;Policy+parseLinkAddress&#x22;&#x3e;&#x3c;/a&#x3e;
+
+### policy.<span class="apidocCodeKeywordSpan">parseLinkAddress</span>(address)
+
+| Param | Type | Description |
+| --- | --- | --- |
+| address | &#x3c;code&#x3e;string&#x3c;/code&#x3e; | the address to parse |
+
+
+Parses a link address used for creating Sender and Receiver links.
+...</pre></li>
     </ul>
 
 
@@ -3951,7 +4691,23 @@ all options in this object are passed directly to node&#x27;s [tls.connect](http
   fixDeprecatedOptions(policy);
   return policy;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+ * @param {Obeject} [policyOverrides]  Additional overrides for the provided policy
+ * @fires AMQPClient#client:errorReceived
+ * @fires AMQPClient#connection:opened
+ * @fires AMQPClient#connection:closed
+ */
+function AMQPClient(policy, policyOverrides) {
+if (!(policy instanceof Policy)) {
+  this.policy = pu.<span class="apidocCodeKeywordSpan">Merge</span>(policy, new Policy());
+} else {
+  this.policy = policy || new Policy();
+  if (!!policyOverrides) this.policy = pu.Merge(policyOverrides, this.policy);
+}
+
+this._connection = null;
+this._session = null;
+...</pre></li>
     </ul>
 
 
@@ -4033,7 +4789,23 @@ ve defined at `require(&#x27;amqp10&#x27;).Constants.receiverSettleMode.settleOn
     delete policy.receiverLink.attach.receiverSettleMode;
   }
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+     credit: putils.CreditPolicies.RefreshAtHalf,
+     creditQuantum: 100,
+     decoder: null,
+     reattach: null
+   },
+ });
+
+ putils.<span class="apidocCodeKeywordSpan">fixDeprecatedOptions</span>(this);
+ return this;
+}
+
+
+/**
+* Parses a link address used for creating Sender and Receiver links.
+*
+...</pre></li>
     </ul>
 
 
@@ -4322,7 +5094,23 @@ immediately on successful sending of the payload, you would build AMQPClient lik
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">list = function (value) { return new ForcedType(name, value); }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+  if (!Array.isArray(input)) {  // raw value
+return input;
+  }
+
+  var typeName = input[0];
+  var value = input.slice(1);
+  if (typeName === &#x27;list&#x27;) {
+return Type.<span class="apidocCodeKeywordSpan">list</span>(value.map(translate));
+  } else if (typeName === &#x27;map&#x27;) {
+var map = {};
+for (var i = 0; i &#x3c; value.length; i += 2) {
+  map[translate(value[i])] = translate(value[i + 1]);
+}
+
+return Type.map(map);
+...</pre></li>
     </ul>
 
 
@@ -4348,7 +5136,24 @@ immediately on successful sending of the payload, you would build AMQPClient lik
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">map = function (value) { return new ForcedType(name, value); }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+    console.log(&#x27;disconnected, when we saw the value we inserted.&#x27;);
+    process.exit(0);
+  });
+}
+};
+
+function range(begin, end) {
+return Array.apply(null, new Array(end - begin)).<span class="apidocCodeKeywordSpan">map</span>(function(_, i) { return i + begin
+; });
+}
+
+var createPartitionReceiver = function(curIdx, curRcvAddr, filterOption) {
+return client.createReceiver(curRcvAddr, filterOption)
+  .then(function (receiver) {
+    receiver.on(&#x27;message&#x27;, messageHandler.bind(null, curIdx));
+    receiver.on(&#x27;errorReceived&#x27;, errorHandler.bind(null, curIdx));
+...</pre></li>
     </ul>
 
 
